@@ -1,0 +1,14 @@
+$red: #ff0000
+$grey: #d1cfcf
+
+$media-xlg: 1399.8px
+$media-lg: 1199.8px
+$media-md: 991.8px
+$media-sm: 767.8px
+$media-xs: 574.8px
+$media-xxs: 320px
+
+@mixin media($width)
+  @media(max-width: $width)
+    @content
+    

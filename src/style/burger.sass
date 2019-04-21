@@ -1,0 +1,56 @@
+.burger
+  height: 50px
+  width: 50px
+  display: flex
+  flex-direction: column
+  justify-content: space-between
+  position: fixed
+  bottom: 40px
+  align-items: flex-end
+  right: 30px
+  z-index: 10
+  cursor: pointer
+
+  &>div
+    background: black
+    position: relative
+    height: 2px
+    transition: all .3s
+
+    &:nth-child(1)
+      top: 0
+      width: 80%
+    &:nth-child(2)
+      width: 100%
+    &:nth-child(3)
+      bottom: 0
+      width: 80%
+
+  &.active
+    &>div
+      background: white
+      width: 100%
+      &:nth-child(2)
+        opacity: 0
+
+      &:nth-child(1)
+        position: relative
+        top: calc(50%)
+        transform: rotate(-45deg)
+        
+      &:nth-child(3)
+        position: relative
+        bottom: calc(50% - 2px)
+        transform: rotate(45deg)
+      
+
+.navbar
+  z-index: 9
+  width: 100%
+  height: 100%
+  position: fixed
+  left: 0
+  right: 0
+  bottom: 0
+  top: 0
+  background: black

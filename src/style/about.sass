@@ -1,0 +1,68 @@
+.about
+  background-color: #dfdfdf
+  background-image: url('../media/about-bg.png')
+  color: #000
+  background-position: 0 50%
+  background-size: 60%
+  background-repeat: no-repeat
+  
+  &>div
+    padding: 30px 
+    display: flex
+    justify-content: flex-end
+    align-items: center
+  
+  .wrapper
+    flex-wrap: wrap
+    display: flex
+    width: 50%
+
+  .title
+    line-height: 30px
+    width: 100%
+    font-size: 40px
+    font-weight: 600
+    color: #4b4b4b
+
+  .subtitle
+    letter-spacing: 2px
+    color: #4b4b4b
+    font-weight: 600
+    font-size: 12px
+    margin-top: 5px
+    text-transform: uppercase
+  
+  .subtitle
+    width: 100%
+
+  .description
+    width: 100%   
+    display: flex
+    justify-content: flex-start
+    margin-top: 40px
+    
+    &-title
+      font-size: 22px
+      font-weight: 600
+      color: $red
+      margin-bottom: 40px
+
+    .item
+      width: 50%
+      max-width: 300px  
+      font-size: 16px
+      font-weight: 400
+      line-height: 20px
+      &:nth-child(1n + 2)
+        margin-left: 20px
+      .text
+        &>div
+          &:nth-child(1n + 2)
+            margin-top: 25px
+
+      .button
+        margin-top: 70px
+        a
+          color: white
+          padding: 18px 25px
+          background: $red
