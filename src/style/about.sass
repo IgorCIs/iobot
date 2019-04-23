@@ -2,8 +2,8 @@
   background-color: #dfdfdf
   background-image: url('../media/about-bg.png')
   color: #000
-  background-position: 0 50%
-  background-size: 60%
+  background-position: 0 40%
+  background-size: 55%
   background-repeat: no-repeat
   
   &>div
@@ -37,6 +37,7 @@
 
   .description
     width: 100%   
+    // padding: 200px 0
     display: flex
     justify-content: flex-start
     margin-top: 40px
@@ -63,6 +64,37 @@
       .button
         margin-top: 70px
         a
+          display: inline-block
           color: white
           padding: 18px 25px
           background: $red
+
+  +media($media-md)
+    .wrapper
+      width: 100%
+      .description
+        justify-content: center
+
+  +media($media-sm)
+    background-image: unset
+    .title, .subtitle
+      text-align: right
+
+  +media($media-xs)
+    .wrapper
+      padding: 50px 0
+  
+    .description
+      flex-direction: column
+      
+      .item
+        margin-top: 40px
+        margin-left: unset!important
+        max-width: 100%
+        width: 100%
+        .button
+          margin-top: 40px
+
+
+.iScrollIndicator
+  opacity: 0

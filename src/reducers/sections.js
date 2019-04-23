@@ -1,9 +1,8 @@
-import ActionTypes from './../constants/ActionsTypes'
+import ActionTypes from '../constants/ActionsTypes'
 
 const initialState = {
   currentSection: 1
 }
-
 
 const sections = (state = initialState, action) => {
     switch(action.type) {

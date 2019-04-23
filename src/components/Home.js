@@ -1,24 +1,32 @@
 import React, { Component } from 'react'
+import animateNode, { animate } from './../libs/animateNode'
 
 export default class Home extends Component {
-  render() {
-    return (
-      <div className='home section'>
+  constructor(props) {
+    super(props)
 
-        <div className='title'>
-            <div> 
-            My name is <span>Kuba</span>, <br/>
-            I do cool sh*t &<br/>
-            this is my <span>book</span>.
+    this.elements = []
+  }
+  
+
+  
+  render() {
+    const { data, active } = this.props
+    animate(active, this.elements)
+
+    return (
+      <div className='home fp-noscroll section'>
+        <div ref={node => this.elements.push(node)} data-animation='fadeInRight' className='title'>
+            <div dangerouslySetInnerHTML={{ __html: data.title }}> 
             </div>
         </div>
         <div className='contacts'>
           <div className='wrapper'>
             <div className='email'>
-              <a href='#'> kuba@iobotic.com </a>
+              <a className='fadeInUp' data-animation='fadeInUp' ref={node => this.elements.push(node)} href={`mailto:${data.links.email}`}> {data.links.email} </a>
             </div>
             <div className='phone'>
-              <a href='#'> +971 55 496 8206 </a>
+              <a className='fadeInUp' data-animation='fadeInUp' ref={node => this.elements.push(node)}  href={`tel${data.links.mobile}`}> {data.links.mobile} </a>
             </div>
           </div>
 

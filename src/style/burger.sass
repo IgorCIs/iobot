@@ -54,3 +54,58 @@
   bottom: 0
   top: 0
   background: black
+  display: flex
+  justify-content: flex-end
+  background-image: url('./../media/menu_bg.png')
+  background-size: 100%
+
+  .navbar-logo
+    height: 160px
+    position: absolute
+    left: 0
+    top: 0
+    width: 100%
+    background: url('./../media/logo-expanded.png')
+    background-repeat: no-repeat
+    background-position: 56px 50%
+    background-size: 200px 50px
+
+
+  .menu
+    width: 50%
+    justify-content: center
+    flex-direction: column
+    display: flex
+    font-weight: 600
+    font-size: 22px
+
+    .item
+      align-items: center
+      color: $red
+      cursor: pointer
+      display: flex
+      margin-top: 30px
+
+      &:before
+        display: block
+        opacity: 0
+        content: ''
+        width: 50px
+        height: 1px
+        background: #fff
+        margin-right: 20px
+        display: inline-block
+
+      &.active
+          color: #fff
+          &:before
+            opacity: 1
+
+  +media($media-xs)
+    .menu
+      width: 80%
+
+    .navbar-logo
+      height: 100px
+      background-size: 160px 40px
+      background-position: 30px 50%

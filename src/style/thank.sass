@@ -44,6 +44,22 @@
       cursor: pointer
       display: flex
       align-items: flex-end
+      position: relative
+      &:before
+        display: block
+        content: ''
+        width: 200px
+        height: 200px
+        position: absolute
+        left: 50%
+        transform: translateX(-50%)
+        top: 0
+        background: url('./../media/backbg.png')
+        background-size: 100%
+        background-position: 0 0
+        background-repeat: no-repeat
+        
+        
 
   +media($media-md)
     .title
