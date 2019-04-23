@@ -7,6 +7,7 @@ import Burger from './Burger';
 import Thanks from './Thanks';
 import About from './About';
 import Pagination from './Pagination';
+import Projects from './Projects';
 // import data from './../data.json'
 
 export class App extends Component {
@@ -27,8 +28,9 @@ export class App extends Component {
   } 
   
   render() {
-    const { sections, setCurrentSection, data } = this.props
+    const { sections, setCurrentSlide, setProject, setCurrentSection, data, projects } = this.props
     const { goToSection } = this
+    console.log(projects)
     return ( 
       <>
         { data ? 
@@ -47,6 +49,7 @@ export class App extends Component {
                     return (
                       <div>
                         <Home data={data.home} active={sections.currentSection === 1}/>
+                        <Projects data={data.projects} active={projects.active} setCurrentSlide={setCurrentSlide} setProject={setProject} activeSlide={projects.activeSlide}/>
                         <About data={data.about} active={sections.currentSection === 2}/>
                         <Thanks data={data.last} onClick={() => goToSection(1)} active={sections.currentSection === 3}/>
                       </div>
