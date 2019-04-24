@@ -41,7 +41,16 @@
       "name": "project name",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ornare dolor a felis hendrerit, id convallis est sollicitudin. Curabitur iaculis sit amet magna eget iaculis. Cras sollicitudin placerat interdum. Cras pellentesque ex sed enim mollis sagittis. Curabitur aliquet leo ligula, ut imperdiet enim facilisis quis.  ",
       "images": [
-        "someimage"
+        "https://i.ibb.co/Q8XG8bR/texture1.jpg",
+        "https://i.ibb.co/xz53PSD/texture2.png"
+      ]
+    },
+    {
+      "name": "project name 2",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ornare dolor a felis hendrerit, id convallis est sollicitudin. Curabitur iaculis sit amet magna eget iaculis. Cras sollicitudin placerat interdum. Cras pellentesque ex sed enim mollis sagittis. Curabitur aliquet leo ligula, ut imperdiet enim facilisis quis.  ",
+      "images": [
+        "https://i.ibb.co/Q8XG8bR/texture1.jpg",
+        "https://i.ibb.co/xz53PSD/texture2.png"
       ]
     }
   ]

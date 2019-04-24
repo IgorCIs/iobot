@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 
-export class Pagination extends Component {
+export class Pagination extends PureComponent {
   render() {
     return (
       <div className='pagination'>

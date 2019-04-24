@@ -1,14 +1,12 @@
-import React, { Component } from 'react'
-import animateNode, { animate } from './../libs/animateNode'
+import React, { PureComponent } from 'react'
+import { animate } from './../libs/animateNode'
 
-export default class Home extends Component {
+export default class Home extends PureComponent {
   constructor(props) {
     super(props)
 
     this.elements = []
   }
-  
-
   
   render() {
     const { data, active } = this.props

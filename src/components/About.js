@@ -6,6 +6,7 @@ const elements = []
 
 const About = ({ data, active }) => {
   animate(active, elements)
+  
 
   return (
     <div className='about section'>

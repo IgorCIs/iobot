@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 
-class Burger extends Component {
+class Burger extends PureComponent {
   state = {
     opened: false
   }
@@ -15,11 +15,18 @@ class Burger extends Component {
     this.toggle()
     this.props.onClick(index)
   }
+
+  scrollToProject = project => {
+    this.toggle()
+    this.props.onClick(2)
+    this.props.setProject(project)
+    
+  }
   
   render() {
     const { opened } = this.state
-    const { scrollTo, toggle } = this
-    const { active } = this.props
+    const { scrollTo, toggle, scrollToProject } = this
+    const { active, projects, projectsData } = this.props
 
     return (
       <>
@@ -28,7 +35,11 @@ class Burger extends Component {
               <div className='navbar-logo'> </div>
               <div className='menu'> 
                 <div className={`item ${active === 1 ? 'active' : ''}`} onClick={() => scrollTo(1)}> Start </div>
-                {/* <div className={`item ${active ? 'active' : ''}`}> </div> */}
+                {
+                  projectsData.map((item, i) => (
+                    <div key={i} onClick={() => scrollToProject(i)} className={`item ${active === 2 && projects.active === i ? 'active' : ''}`}> {item.name} </div>
+                  ))
+                }
                 <div className={`item ${active === 3? 'active' : ''}`} onClick={() => scrollTo(3)}> About me </div>
               </div>
             </div>
