@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@fullpage/react-fullpage": "^0.1.14",
+    "@tweenjs/tween.js": "^17.3.0",
     "animate.css": "^3.7.0",
     "fullpage-react": "^3.1.0",
     "node-sass": "^4.11.0",
@@ -35,5 +36,5 @@
     "not ie <= 11",
     "not op_mini all"
   ],
-  "homepage": "http://webgl.unilimes.com/project/iobotic/"
+  "homepage": "http://webgl.unilimes.com/project/iobotic2/"
 }

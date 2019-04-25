@@ -203,7 +203,7 @@ export function ImageSwitcher () {
                 
                 vec4 noize = getDistortionNoize( distortionMap, time, timedUV );
                 vec4 currentColor = getMixedColor( image1, image2, vUv, mixAlpha * distortionScale );
-                float colorMorphHeight = ( currentColor.x * 2.0 +  currentColor.y * 5.0 +  currentColor.z * 3.0 ) / 3.0;
+                float colorMorphHeight = ( currentColor.x * 2.0 +  currentColor.y * 5.0 +  currentColor.z * 3.0 ) / 6.0;
 
                 // filter for colors weight
                 
@@ -309,16 +309,44 @@ export default class ImageSwitcherMesh{
     }
 
 
+    updateGeometry(update) {
+        const { config } = this
+        const nextGeometryParams = [];
+
+        nextGeometryParams[ 0 ] = this.image1.width / 10;
+        nextGeometryParams[ 1 ] =  this.image1.height / 10;
+        
+        const aspect = nextGeometryParams[ 0 ] / nextGeometryParams[ 1 ];
+        const segmentStandardCount = 20;
+
+        nextGeometryParams[ 2 ] = Math.floor(  segmentStandardCount * aspect );
+        nextGeometryParams[ 3 ] = Math.floor(  segmentStandardCount );
+        
+        config.geometry = nextGeometryParams;
+
+        this.nextPlaneGeometry = new THREE.PlaneGeometry(config.geometry[0], config.geometry[1], config.geometry[2], config.geometry[3]);
+        this.nextPlaneGeometry.rotateX(-Math.PI / 2 );
+
+        if(update ) {
+            this.shaderPlane = new THREE.Mesh(this.nextPlaneGeometry, this.shaderMaterial);
+        } else {
+            this.shaderPlane.geometry.dispose()
+            this.shaderPlane.geometry = this.nextPlaneGeometry
+            console.log(this.shaderPlane.geometry)
+        }
+        // console.log(this.shaderPlane.geometry.parameters)
+       
+    }
+    
     async init( _config ){
         const config = {...this.config, ..._config};
-
+        this.config = config
         
         try {
             
             this.shaderForMaterial = ImageSwitcher();
 
-            
-            
+        
             await Promise.all([
                 this.setTexture1( config.image1 ),
                 this.setTexture2( config.image2 ),
@@ -327,8 +355,6 @@ export default class ImageSwitcherMesh{
 
 
             // set value
-            this.nextPlaneGeometry = new THREE.PlaneGeometry(config.geometry[0], config.geometry[1], config.geometry[2], config.geometry[3]);
-            this.nextPlaneGeometry.rotateX(-Math.PI / 2 );
             this.shaderForMaterial.uniforms.mixAlpha.value = config.mixAlpha;
             this.texture1.image = this.canvas1;
             this.shaderForMaterial.uniforms.image1.value = this.texture1;
@@ -350,11 +376,14 @@ export default class ImageSwitcherMesh{
                 uniforms: this.shaderForMaterial.uniforms,
                 vertexShader: this.shaderForMaterial.vertexShader,
                 fragmentShader: this.shaderForMaterial.fragmentShader,
-                // transparent: true,
+                transparent: true,
                 side: THREE.DoubleSide,
-                // wireframe: true
+                wireframe: true
             });
             this.shaderPlane = new THREE.Mesh(this.nextPlaneGeometry, this.shaderMaterial);
+            
+            this.updateGeometry(true)
+
         }
         catch (error) {
             console.log(error);
@@ -386,10 +415,11 @@ export default class ImageSwitcherMesh{
     setTexture1( img ){
         return new Promise( ( resolve, reject ) => {
              this.drawOnCanvas( img, this.canvas1 ).then( () => {
-                this.texture1.image = this.canvas1 ;
-                this.texture1.needsUpdate = true;
-                this.shaderForMaterial.uniforms.image1.value = this.texture1;
-                resolve( this.texture1 );
+                 this.image1 = img
+                 this.texture1.image = this.canvas1 ;
+                 this.texture1.needsUpdate = true;
+                 this.shaderForMaterial.uniforms.image1.value = this.texture1;
+                 resolve( this.texture1 );
              }, () => {});
         } )
     }
@@ -397,6 +427,7 @@ export default class ImageSwitcherMesh{
     setTexture2( img ){
         return new Promise( ( resolve, reject ) => {
              this.drawOnCanvas( img, this.canvas2 ).then( () => {
+                this.image2 = img
                 this.texture2.image = this.canvas2 ;
                 this.texture2.needsUpdate = true;
                 this.shaderForMaterial.uniforms.image2.value = this.texture2;

@@ -15,14 +15,12 @@ export default connect(
   dispatch => 
     ({
       setCurrentSection(section) {
-        console.log(section)
         dispatch(setCurrentSection(section))
       },
       fetchData() {
         dispatch(fetchData())
       },
       setProject(project) {
-        console.log(project)
         dispatch(setCurrentProject(project))
       },
       setCurrentSlide(slide) {

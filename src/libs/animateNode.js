@@ -12,9 +12,9 @@ export default function animateNode(element, animationName, callback) {
   node.addEventListener('animationend', handleAnimationEnd)
 }
 
-export function animate(active, elements) {
+export function animate(active, elements, cb) {
   if(active) 
     elements.forEach(item => {
-      if(item) animateNode(item, item.dataset.animation)
+      if(item) animateNode(item, item.dataset.animation, cb)
     })
 }
