@@ -1,11 +1,19 @@
 import React, { PureComponent } from 'react'
 import { animate } from './../libs/animateNode'
+import CloudViewer from '../libs/cloudViewer';
 
 export default class Home extends PureComponent {
   constructor(props) {
     super(props)
 
     this.elements = []
+  }
+
+  componentWillMount() {
+    setTimeout(() => {
+      if(!this.viewer) this.viewer = new CloudViewer(this._canvas, this.props.onLoad)
+      
+    }, 0);
   }
   
   render() {
@@ -14,6 +22,7 @@ export default class Home extends PureComponent {
 
     return (
       <div className='home fp-noscroll section'>
+        <div ref={node => this._canvas = node} id='homescene' className='scene'> </div>
         <div ref={node => this.elements.push(node)} data-animation='fadeInRight' className='title'>
             <div dangerouslySetInnerHTML={{ __html: data.title }}> 
             </div>

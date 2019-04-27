@@ -26,15 +26,16 @@ export class App extends PureComponent {
 
   state = {
     contentLoaded: false,
-    blockSlider: false
+    blockSlider: false,
+    homeLoaded: false
   }
   
   componentDidMount() {
     this.props.fetchData()
   }
   
-  async goToSection(i) {
-    await this.setState({blockSlider: true})
+  async goToSection(i, block = true) {
+    if(block) await this.setState({blockSlider: true})
     this.props.setCurrentSection(i)
     this.fullpageApi.moveTo(i)
   } 
@@ -54,11 +55,12 @@ export class App extends PureComponent {
     this.setState({contentLoaded: true})
   }
 
-  scrollSlider({origin, destination, direction, scroll}) {
+  scrollSlider({ origin, destination, direction, scroll }) {
     const { projects, data } = this.props
     const project = data.projects[projects.active]
     const projectLength = project.images.length + 1
 
+    
     if (origin.index === 1) {
       if (direction === 'up' && projects.activeSlide !== 0) {
         this.fullpageApi.moveSlideLeft()
@@ -82,11 +84,11 @@ export class App extends PureComponent {
   render() {
     const { sections, setCurrentSlide, setProject, data, projects } = this.props
     const { goToSection } = this
-    const { contentLoaded } = this.state
+    const { contentLoaded, homeLoaded } = this.state
     
     return ( 
       <>
-        { contentLoaded ? '' : <Loader loaded={!!data} unMount={this.unMountLoader}/> }
+        { homeLoaded && contentLoaded ? '' : <Loader loaded={(!!data && homeLoaded)} unMount={this.unMountLoader}/> }
         { data ? 
             <>
               <Logo/>
@@ -98,7 +100,7 @@ export class App extends PureComponent {
                 onLeave={(origin, destination, direction) => {
                   origin.index !== 1 && this.scroll(destination)
                   if (!this.state.blockSlider) {
-                    return this.scrollSlider({origin, destination, direction, scroll: this.scroll})
+                    return this.scrollSlider({ origin, destination, direction, scroll: this.scroll })
                   }
                   this.setState({blockSlider: false})
                 }}  
@@ -110,7 +112,7 @@ export class App extends PureComponent {
                     if(fullpageApi) this.fullpageApi = fullpageApi
                     return (
                       <div>
-                        <Home data={data.home} active={sections.currentSection === 1}/>
+                        <Home data={data.home} onLoad={() => this.setState({ homeLoaded : true })} active={sections.currentSection === 1}/>
                         <Projects data={data.projects} active={projects.active} setCurrentSlide={this.goToSlide} setProject={setProject} activeSlide={projects.activeSlide}/>
                         <About data={data.about} active={sections.currentSection === 3}/>
                         <Thanks data={data.last} onClick={() => goToSection(1)} active={sections.currentSection === 4}/>

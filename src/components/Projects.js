@@ -13,26 +13,37 @@ export class Projects extends Component {
   
   componentDidMount() {
     this.setViewer()
+
   }
   
   setViewer() {
     const { data } = this.props
+    
+    const firstImage = this._images.querySelectorAll('img')[0]
 
-    this.viewer = new Viewer(this._canvas, this._images.querySelectorAll('img'), data[0]['fist-slide-color'], true)
+    const initViewer = () => {
+      this.viewer = new Viewer(this._canvas, this._images.querySelectorAll('img'), data[0]['fist-slide-color'], true)
+      firstImage.removeEventListener('load', initViewer)
+    }
+
+    firstImage.addEventListener('load', initViewer)
   }
 
   render() {
     const { active, activeSlide, setCurrentSlide, data } = this.props
-    const activeLastSlide = data[active].images.length + 1 === activeSlide
+    const activeProject = data[active]
 
-    if (activeSlide === 0 && this.viewer) {
-      this.viewer.setImage(this._titles.querySelectorAll('img')[active])
-      this.viewer.setColor(data[active]['fist-slide-color'])
+    if (activeSlide === 0 && this.viewer && this._titles) {
+      const activeImage = this._titles.querySelectorAll('img')[active]
+      if (this.viewer.activeImage.src !== activeImage.src) {
+        this.viewer.setImage(activeImage)
+        this.viewer.setColor(activeProject['fist-slide-color'])
+      }
     } 
     
-    if(activeLastSlide) {
+    if (activeProject.images.length + 1 === activeSlide) {
       this._title.style.display = 'block'
-      setTimeout(() => animate(activeLastSlide, [this._title], () => this._title.style.display = 'none'), 1000 )
+      setTimeout(() => animate(true, [this._title], () => this._title.style.display = 'none'), 1000)
     } 
       
     return (
@@ -43,7 +54,7 @@ export class Projects extends Component {
           </div>
         </div>
 
-        {data[active].images.map((item, i) =>       
+        {activeProject.images.map((item, i) =>       
           <div key={i} className='slide fp-noscroll'> 
             <div className='image-slide'>
               <img src={item} alt=''/>
@@ -51,17 +62,17 @@ export class Projects extends Component {
           </div>
         )}
 
-        <div className='slide descr-wrapper fp-noscroll' style={{background: data[active]['last-slide-color']}}>
+        <div className='slide descr-wrapper fp-noscroll' style={{background: activeProject['last-slide-color']}}>
           <div className='descr-slide' >
-            <div className='title' data-animation='fadeOutLeft' ref={node => this._title = node}> {data[active].name} </div>
+            <div className='title' data-animation='fadeOutLeft' ref={node => this._title = node}> {activeProject.name} </div>
             <div className='descr'>
-              {data[active].description}
+              {activeProject.description}
             </div>
           </div>
         </div>
 
         <div className='pagination-list'>
-          {[...data[active].images, 's', 's'].map((item, i) => 
+          {[...activeProject.images, 's', 's'].map((item, i) => 
             <div key={i} onClick={() => setCurrentSlide(i)}  className={`item ${activeSlide === i ? 'active' : '' }`}>
               <div/>
             </div>
@@ -70,8 +81,8 @@ export class Projects extends Component {
 
         <>
           <div ref={node => this._images = node} className='project-images'> 
-              <img crossOrigin='Anonymous' alt='' src={data[active]['title-image']}/>
-              <img crossOrigin='Anonymous' alt='' src={data[active]['title-image']}/>
+              <img crossOrigin='Anonymous' alt='' src={activeProject['title-image']}/>
+              <img crossOrigin='Anonymous' alt='' src={activeProject['title-image']}/>
           </div>
 
           <div ref={node => this._titles = node} className='project-images'> 

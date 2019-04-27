@@ -327,12 +327,11 @@ export default class ImageSwitcherMesh{
         this.nextPlaneGeometry = new THREE.PlaneGeometry(config.geometry[0], config.geometry[1], config.geometry[2], config.geometry[3]);
         this.nextPlaneGeometry.rotateX(-Math.PI / 2 );
 
-        if(update ) {
+        if (update) {
             this.shaderPlane = new THREE.Mesh(this.nextPlaneGeometry, this.shaderMaterial);
         } else {
             this.shaderPlane.geometry.dispose()
             this.shaderPlane.geometry = this.nextPlaneGeometry
-            console.log(this.shaderPlane.geometry)
         }
         // console.log(this.shaderPlane.geometry.parameters)
        

@@ -40,17 +40,73 @@ class Viewer {
     this.render()
 
     this.controlls.enabled = false;
+    this.deviceGyro = false
     
-    document.addEventListener('mousemove', (e) => {
+    this.sceneElement.addEventListener('mousemove', (e) => {
       this.mp = {
         x: e.pageX,
         y: e.pageY,
       }
-      this.mouseMover() 
+      if(!this.deviceGyro) this.mouseMover(this.mp) 
       this.camera.updateProjectionMatrix();
+
       // this.controlls.update()
     })
+
+    window.addEventListener('deviceorientation', (e) => {
+      this.deviceGyro = true
+      let x 
+      let y
+      if (e.beta > 100) {
+        y = 100
+      } else if (e.beta < 0) {
+        y = 0
+      } else {
+        y = e.beta
+      }
+
+
+      if (e.alpha > 50) {
+        x = e.alpha + 50
+        if(e.alpha > 100) x = 100
+      } else if (e.alpha < 0) {
+        x = e.alpha + 50
+        if(e.alpha < -50) x = 0
+      } else {
+        x = e.alpha + 50
+      }
+
+      this.gp = {
+        x: x / 100 * this.sceneElement.offsetWidth,
+        y: y / 100 * this.sceneElement.offsetHeight 
+      }
+      
+      this.mouseMover(this.gp, true) 
+      this.camera.updateProjectionMatrix();
+    }, false)
   }
+
+  mouseMover(mp, nox) {
+    const wp = {
+      w: this.sceneElement.offsetWidth,
+      h: this.sceneElement.offsetHeight,
+    };
+
+    const currentMouseNormal = new THREE.Vector2(
+      1.0 - ( mp.x / wp.w * 2.0  ),
+      1.0 - ( mp.y / wp.h * 2.0 )
+    );
+    currentMouseNormal.negate();
+    
+    const toSinFunc = ( alpha )=> {
+      return Math.sin( Math.PI / 2 * alpha );
+    }
+
+    const translateFactor = Math.PI/2;
+    this.cameraHolder.rotation.x = 0 + toSinFunc( currentMouseNormal.y ) * translateFactor * 0.2;
+    if(!nox) this.cameraHolder.rotation.z = 0 + toSinFunc( currentMouseNormal.x ) * translateFactor * 0.1;
+  }
+  
    
   setWidths() {
     const width =  this.sceneElement.offsetWidth / this.sceneElement.offsetHeight
@@ -68,7 +124,9 @@ class Viewer {
   }
 
   setColor(color) {
-    this.renderer.setClearColor( color );
+    this.renderer.clearColor()
+    console.log(color)
+    this.renderer.setClearColor(color)
   }
   
   render() {
@@ -99,7 +157,7 @@ class Viewer {
       })
     } 
     
-    this.lastImage = this.clientImages[0] 
+    this.activeImage = this.clientImages[0] 
       
     await ImageSwitcher.init({
       image1: this.clientImages[0],
@@ -113,41 +171,11 @@ class Viewer {
 
   }
 
-  mouseMover() {
-    
-    const wp = {
-        w: this.sceneElement.offsetWidth,
-        h: this.sceneElement.offsetHeight,
-    };
-
-    const currentMouseNormal = new THREE.Vector2(
-        1.0 - ( this.mp.x / wp.w * 2.0  ),
-        1.0 - ( this.mp.y / wp.h * 2.0 )
-    );
-    currentMouseNormal.negate();
-    
-    const toSinFunc = ( alpha )=> {
-      return Math.sin( Math.PI / 2 * alpha );
-    }
-
-    const translateFactor = Math.PI/2;
-    this.cameraHolder.rotation.x = 0 + toSinFunc( currentMouseNormal.y ) * translateFactor * 0.2;
-    this.cameraHolder.rotation.z = 0 + toSinFunc( currentMouseNormal.x ) * translateFactor * 0.1;
-  }
-  
   async setImage(image) {
-    const lastimg = this.lastImage
-    // const img = new Promise((resolve, reject) => {
-    //   console.log(image)
-    //   resolve(image)
-    // })
-    // const newImg = await img
-    
-    if (lastimg.src !== image.src) {
-      await this.ImageSwitcher.setTexture1(image)
-      await this.ImageSwitcher.setTexture2(image)
-      this.ImageSwitcher.updateGeometry()
-    }
+    this.activeImage = image
+    await this.ImageSwitcher.setTexture1(image)
+    await this.ImageSwitcher.setTexture2(image)
+    this.ImageSwitcher.updateGeometry()
   }
 
   // nextImage() {

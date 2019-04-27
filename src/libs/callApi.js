@@ -10,7 +10,7 @@ const callApi = (url, options) =>
       json => ({json}),
       error => ({error})
     )
-    .catch(error => ({ error }));
+    .catch(error => (console.log({ error })))
 
 export {
   callApi

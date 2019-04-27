@@ -18,7 +18,7 @@ class Burger extends PureComponent {
 
   scrollToProject = project => {
     this.toggle()
-    this.props.onClick(2)
+    this.props.onClick(2, false)
     this.props.setProject(project)
     
   }
