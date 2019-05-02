@@ -40,7 +40,9 @@ export default class CloudViewer {
     this.controls.enabled = false;
 
     this.enabled = true;
-    
+
+    console.log( this );
+
     this.initMouse();
     this.initShader();
     this.initResizer();
@@ -125,9 +127,7 @@ export default class CloudViewer {
     if( this.MainMesh ) {
       this.MainMesh.updateMouseNormal( this.mouseNormal );
       this.MainMesh.animate();
-      const toSinFunc = ( alpha )=> {
-        return Math.sin( Math.PI / 2 * alpha );
-      };
+      const toSinFunc = ( alpha )=> { return Math.sin( Math.PI / 2 * alpha ); };
       const translateFactor = Math.PI / 2;
       this.cameraHolder.rotation.x = 0 + toSinFunc( this.MainMesh.mouseOldestPosition.y ) * translateFactor * 0.2;
       this.cameraHolder.rotation.y = 0 + -toSinFunc( this.MainMesh.mouseOldestPosition.x ) * translateFactor * 0.3;
@@ -140,13 +140,14 @@ export default class CloudViewer {
   }
 
   initMouse() {
-
     document.body.addEventListener('mousemove', (e) => {
-      const mp = { x: e.pageX, y: e.pageY };
-      const wp = { w: this.sceneElement.offsetWidth, h: this.sceneElement.offsetHeight };
-      const currentMouseNormal = new THREE.Vector2( -1.0 + ( mp.x / wp.w * 2.0  ), 1.0 - ( mp.y / wp.h * 2.0 ) );
-      this.mouseNormal.copy( currentMouseNormal );
+        if( this.enabled ){
+            const mp = { x: e.pageX, y: e.pageY };
+            const wp = { w: this.sceneElement.offsetWidth, h: this.sceneElement.offsetHeight };
+            const currentMouseNormal = new THREE.Vector2( -1.0 + ( mp.x / wp.w * 2.0  ), 1.0 - ( mp.y / wp.h * 2.0 ) );
+            this.mouseNormal.copy( currentMouseNormal );
+        }
     });
-
   }
+
 }

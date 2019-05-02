@@ -1013,7 +1013,7 @@ export default class MorphCloudShader {
 
         this.mouseOldestPosition = new THREE.Vector2();
         this.mouseHistory = [];
-        this.mouseHistoryMax = 16;
+        this.mouseHistoryMax = 12;
         for( let i = 0; i < this.mouseHistoryMax; i++ ){ this.mouseHistory.push( new THREE.Vector2() ) }
 
         this.animationFuntction = () => {};
