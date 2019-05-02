@@ -7,7 +7,7 @@ import __object from './../media/skull.obj'
 console.log(__object)
 
 export default class CloudViewer {
-  constructor(element, onLoad) {
+  constructor(element, onLoad, color) {
     this.sceneElement = element
     this.onLoad = onLoad
 
@@ -19,12 +19,11 @@ export default class CloudViewer {
     this.camera.position.set(3, 32, 91)
     this.camera.position.multiplyScalar(0.4)
 
-    this.cameraHolder = new THREE.Object3D();
-    this.cameraHolder.add( this.camera );
-
+    this.cameraHolder = new THREE.Object3D()
+    this.cameraHolder.add( this.camera )
 
     this.renderer.setPixelRatio( window.devicePixelRatio )
-    this.renderer.setClearColor( '#000000' )   
+    this.renderer.setClearColor( color )
 
     this.sceneElement.appendChild(this.renderer.domElement)
     this.renderer.setSize(this.sceneElement.offsetWidth, this.sceneElement.offsetHeight);    
@@ -99,7 +98,7 @@ export default class CloudViewer {
 
   initMouse() {
      
-    this.sceneElement.addEventListener('mousemove', (e) => {
+    document.body.addEventListener('mousemove', (e) => {
       const mp = {
         x: e.pageX,
         y: e.pageY,

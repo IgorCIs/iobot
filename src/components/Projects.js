@@ -10,10 +10,34 @@ export class Projects extends Component {
     this.canvases = []
     this.images = []
   }
+
+  state = {
+    blockScroll: false
+  }
   
   componentDidMount() {
     this.setViewer()
+    this.events = 0
+    this.setScroll()
+  }
 
+  setScroll() {
+    const { setCurrentSlide } = this.props
+    
+    const scrollSlide = e => {
+      // if (e.deltaX) {
+      //   const delta = e.deltaX >= 1 ? 1 : -1
+      //   console.log(delta)
+      //   const nextSlide = this.slidesLength < this.props.activeSlide + 0 ? 1 : this.props.activeSlide + 1 
+      //   delta === 1 ? setCurrentSlide(nextSlide) : setCurrentSlide(this.props.activeSlide - 1)
+
+        
+      //   this._element.removeEventListener('mousewheel', scrollSlide)
+      //   this._element.addEventListener('mousewheel', scrollSlide)
+      // }
+    }
+    
+    // this._element.addEventListener('mousewheel', scrollSlide)
   }
   
   setViewer() {
@@ -32,6 +56,7 @@ export class Projects extends Component {
   render() {
     const { active, activeSlide, setCurrentSlide, data } = this.props
     const activeProject = data[active]
+    this.slidesLength = activeProject.images.length + 1
 
     if (activeSlide === 0 && this.viewer && this._titles) {
       const activeImage = this._titles.querySelectorAll('img')[active]
@@ -41,13 +66,16 @@ export class Projects extends Component {
       }
     } 
     
-    if (activeProject.images.length + 1 === activeSlide) {
-      this._title.style.display = 'block'
-      setTimeout(() => animate(true, [this._title], () => this._title.style.display = 'none'), 1000)
-    } 
+    if (this.slidesLength === activeSlide) {
+      setTimeout(() => animate(true, [this._title], f=>f, true), 1000)
+    } else {
+      setTimeout(() => {
+        if(this._title)this._title.classList.remove('animated', this._title.dataset.animation)
+      }, 100);
+    }
       
     return (
-      <div className='section fp-noscroll projects'>
+      <div className={`section fp-noscroll projects`} ref={node => this._element = node} data-slides={`${(activeProject.images.length === activeSlide - 1) ? 'last' : ''}${activeSlide === 0 ? 'first' : ''}`}>
         <div className='slide fp-noscroll'>
           <div className='first-slide'>
             <div ref={node => this._canvas = node} className='project-scene'> </div>
@@ -56,15 +84,14 @@ export class Projects extends Component {
 
         {activeProject.images.map((item, i) =>       
           <div key={i} className='slide fp-noscroll'> 
-            <div className='image-slide'>
-              <img src={item} alt=''/>
+            <div className='image-slide' style={{ backgroundImage: `url(${item})` }}>
             </div>
           </div>
         )}
 
         <div className='slide descr-wrapper fp-noscroll' style={{background: activeProject['last-slide-color']}}>
           <div className='descr-slide' >
-            <div className='title' data-animation='fadeOutLeft' ref={node => this._title = node}> {activeProject.name} </div>
+            <div className='title' data-animation='projectsTitle' ref={node => this._title = node}> {activeProject.name} </div>
             <div className='descr'>
               {activeProject.description}
             </div>

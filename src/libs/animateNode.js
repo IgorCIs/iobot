@@ -1,9 +1,10 @@
-export default function animateNode(element, animationName, callback) {
+export default function animateNode(element, animationName, callback, notDelete) {
   const node = element
   node.classList.add('animated', animationName)
 
   function handleAnimationEnd() {
-      node.classList.remove('animated', animationName)
+      !notDelete && node.classList.remove('animated')
+      !notDelete && node.classList.remove(animationName)
 
       if (typeof callback === 'function') callback()
   }
@@ -16,9 +17,9 @@ export default function animateNode(element, animationName, callback) {
   node.addEventListener('animationiteration', () => handleAnimationEnd(), true)
 }
 
-export function animate(active, elements, cb) {
+export function animate(active, elements, cb, notDelete) {
   if(active) 
     elements.forEach(item => {
-      if(item) animateNode(item, item.dataset.animation, cb)
+      if(item) animateNode(item, item.dataset.animation, cb, notDelete)
     })
 }

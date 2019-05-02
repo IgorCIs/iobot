@@ -20,7 +20,6 @@ class Burger extends PureComponent {
     this.toggle()
     this.props.onClick(2, false)
     this.props.setProject(project)
-    
   }
   
   render() {
@@ -30,21 +29,18 @@ class Burger extends PureComponent {
 
     return (
       <>
-        { opened ? 
-            <div className='navbar'> 
-              <div className='navbar-logo'> </div>
-              <div className='menu'> 
-                <div className={`item ${active === 1 ? 'active' : ''}`} onClick={() => scrollTo(1)}> Start </div>
-                {
-                  projectsData.map((item, i) => (
-                    <div key={i} onClick={() => scrollToProject(i)} className={`item ${active === 2 && projects.active === i ? 'active' : ''}`}> {item.name} </div>
-                  ))
-                }
-                <div className={`item ${active === 3? 'active' : ''}`} onClick={() => scrollTo(3)}> About me </div>
-              </div>
-            </div>
-            : ''
-        }
+        <div className={`navbar ${opened ? 'opened' : ''}`}> 
+          <div className='navbar-logo'> </div>
+          <div className='menu'> 
+            <div className={`item ${active === 1 ? 'active' : '' }`} onClick={() => scrollTo(1)}> Start </div>
+            {
+              projectsData.map((item, i) => (
+                <div key={i} onClick={() => scrollToProject(i)} className={`item ${active === 2 && projects.active === i ? 'active' : ''}`}> {item.name} </div>
+              ))
+            }
+            <div className={`item ${active === 3? 'active' : ''}`} onClick={() => scrollTo(3)}> About me </div>
+          </div>
+        </div>
           
         <div onClick={toggle} className={`burger animated fadeInRight ${opened ? 'active' : '' }`}>
           <div></div>

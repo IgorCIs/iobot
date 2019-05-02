@@ -43,7 +43,6 @@ export class App extends PureComponent {
   goToSlide(i) {
     this.props.setCurrentSlide(i)
     this.fullpageApi.moveTo(2, i)
-
   }
 
   goToProject(i) {
@@ -85,6 +84,8 @@ export class App extends PureComponent {
     const { sections, setCurrentSlide, setProject, data, projects } = this.props
     const { goToSection } = this
     const { contentLoaded, homeLoaded } = this.state
+    if(data && (data.title !== document.title)) document.title = data.title
+
     
     return ( 
       <>
@@ -98,10 +99,11 @@ export class App extends PureComponent {
                 scrollOverflow={true}
                 scrollHorizontally={true}
                 onLeave={(origin, destination, direction) => {
-                  origin.index !== 1 && this.scroll(destination)
-                  if (!this.state.blockSlider) {
-                    return this.scrollSlider({ origin, destination, direction, scroll: this.scroll })
-                  }
+                  // origin.index !== 1 && 
+                  this.scroll(destination)
+                  // if (!this.state.blockSlider) {
+                  //   return this.scrollSlider({ origin, destination, direction, scroll: this.scroll })
+                  // }
                   this.setState({blockSlider: false})
                 }}  
                 onSlideLeave={(origin, destination, direction) => {
@@ -112,7 +114,7 @@ export class App extends PureComponent {
                     if(fullpageApi) this.fullpageApi = fullpageApi
                     return (
                       <div>
-                        <Home data={data.home} onLoad={() => this.setState({ homeLoaded : true })} active={sections.currentSection === 1}/>
+                        <Home data={data.home} setSection={goToSection} onLoad={() => this.setState({ homeLoaded : true })} active={sections.currentSection === 1}/>
                         <Projects data={data.projects} active={projects.active} setCurrentSlide={this.goToSlide} setProject={setProject} activeSlide={projects.activeSlide}/>
                         <About data={data.about} active={sections.currentSection === 3}/>
                         <Thanks data={data.last} onClick={() => goToSection(1)} active={sections.currentSection === 4}/>

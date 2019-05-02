@@ -11,21 +11,21 @@ export default class Home extends PureComponent {
 
   componentWillMount() {
     setTimeout(() => {
-      if(!this.viewer) this.viewer = new CloudViewer(this._canvas, this.props.onLoad)
-      
+      if(!this.viewer) this.viewer = new CloudViewer(this._canvas, this.props.onLoad, this.props.data.color)
     }, 0);
   }
   
   render() {
-    const { data, active } = this.props
+    const { data, active, setSection } = this.props
     animate(active, this.elements)
 
     return (
       <div className='home fp-noscroll section'>
         <div ref={node => this._canvas = node} id='homescene' className='scene'> </div>
         <div ref={node => this.elements.push(node)} data-animation='fadeInRight' className='title'>
-            <div dangerouslySetInnerHTML={{ __html: data.title }}> 
-            </div>
+          <div>
+            My name is <span onClick={() =>  setSection(3)}>Kuba</span>, <br/>I do cool sh*t & <br/> this is my <span onClick={() => setSection(2)}> book </span>
+          </div>
         </div>
         <div className='contacts'>
           <div className='wrapper'>

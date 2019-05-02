@@ -1,6 +1,7 @@
 {
+  "title": "iobotic",
   "home": {
-    "title": "My name is <span>Kuba</span>, <br>I do cool sh*t & <br> this is my <span> book </span>.",
+    "color": "#d1cfd0",
     "links": {
       "email": "kuba@iobotic.com",
       "mobile": "+971 55 496 8206"
@@ -26,7 +27,7 @@
         ]        
       }
     },
-    "cvLink": ""
+    "cvLink": "http://somelink.com/"
   },
   "last": {
     "title": "thank you",
@@ -40,7 +41,7 @@
     {
       "name": "some-project",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ornare dolor a felis hendrerit, id convallis est sollicitudin. Curabitur iaculis sit amet magna eget iaculis. Cras sollicitudin placerat interdum. Cras pellentesque ex sed enim mollis sagittis. Curabitur aliquet leo ligula, ut imperdiet enim facilisis quis.  ",
-      "title-image": "https://i.ibb.co/L0grHpg/Project-name.png",
+      "title": "project-name",
       "fist-slide-color": "#000000",
       "last-slide-color": "#000000",
       "images": [
@@ -52,7 +53,7 @@
     {
       "name": "second-project",
       "description": "asdsa da sd asd asd ,sdf sdjgsj ghdfj gdf jkgdf jgkhfdg ",
-      "title-image": "https://i.ibb.co/PT8rH8N/distortion-Map.jpg",
+      "title": "some-project",
       "fist-slide-color": "#00ff00",
       "last-slide-color": "#0000ff",
       "images": [
@@ -64,7 +65,7 @@
     {
       "name": "third-project",
       "description": "asdsa da sd asd asd ,sdf sdjgsj ghdfj gdf jkgdf jgkhfdg ",
-      "title-image": "https://i.ibb.co/XJk21VG/GoYcMqd.jpg",
+      "title-image": "it is a project",
       "fist-slide-color": "#ff3211",
       "last-slide-color": "#0000ff",
       "images": [

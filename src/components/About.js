@@ -3,11 +3,9 @@ import { animate } from '../libs/animateNode';
 
 const elements = []
 
-
 const About = ({ data, active }) => {
   animate(active, elements)
   
-
   return (
     <div className='about section'>
       <div className='wrapper'> 
@@ -24,7 +22,7 @@ const About = ({ data, active }) => {
               }
             </div>
             <div className='button' data-animation='fadeInRight' ref={node => elements.push(node)}>
-              <a href={data.cvLink}> Download full cv (pdf) </a>
+              <a target='_blank' href={data.cvLink}> Download full cv (pdf) </a>
             </div>
           </div>
           <div className='item' >
