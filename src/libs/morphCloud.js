@@ -1182,6 +1182,23 @@ export default class MorphCloudShader {
 
     }
 
+    remove(){
+        this.shaderMesh2.parent.remove( this.shaderMesh2 );
+        this.shaderMesh.parent.remove( this.shaderMesh );
+
+        this.shaderMesh.geometry.dispose();
+        this.shaderMesh.material.dispose();
+        this.shaderMesh2.material.dispose();
+
+        this.shaderMaterial.dispose();
+        this.shaderMaterial2.dispose();
+        this.shaderGeometry.dispose();
+
+        this.shaderMaterial = null;
+        this.shaderMaterial2 = null;
+        this.shaderGeometry = null;
+    }
+
     raycastModel(){
         this.raycaster.setFromCamera( this.mouseXY, this.camera );
         return this.raycaster.intersectObject( this.shaderMesh );
