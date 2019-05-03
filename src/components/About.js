@@ -22,7 +22,7 @@ const About = ({ data, active }) => {
               }
             </div>
             <div className='button' data-animation='fadeInRight' ref={node => elements.push(node)}>
-              <a target='_blank' href={data.cvLink}> Download full cv (pdf) </a>
+              <a target='_blank' rel='noopener noreferrer' href={data.cvLink}> Download full cv (pdf) </a>
             </div>
           </div>
           <div className='item' >

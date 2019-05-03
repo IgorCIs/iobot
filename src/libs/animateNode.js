@@ -10,11 +10,12 @@ export default function animateNode(element, animationName, callback, notDelete)
   }
 
   //lol iOs :c 
-  node.addEventListener('animationend', () => handleAnimationEnd(), true)
-  node.addEventListener('webkitAnimationEnd', () => handleAnimationEnd(), true)
-  node.addEventListener('webkitanimationend', () => handleAnimationEnd(), true)
-  node.addEventListener('animationend', () => handleAnimationEnd(), true)
-  node.addEventListener('animationiteration', () => handleAnimationEnd(), true)
+  node.addEventListener('animationend', () => handleAnimationEnd(), false)
+  node.addEventListener('webkitAnimationEnd', () => handleAnimationEnd(), false)
+  node.addEventListener('webkitanimationend', () => handleAnimationEnd(), false)
+  node.addEventListener('animationend', () => handleAnimationEnd(), false)
+  node.addEventListener('animationiteration', () => setTimeout(() => handleAnimationEnd(), 500),false)
+
 }
 
 export function animate(active, elements, cb, notDelete) {

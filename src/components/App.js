@@ -79,7 +79,11 @@ export class App extends PureComponent {
   scroll(destination) {
     this.props.setCurrentSection(destination.index + 1)
   }
-  
+
+  toggleLoader = (open = true) => {
+    this.setState({ homeLoaded: open })
+  }  
+
   render() {
     const { sections, setCurrentSlide, setProject, data, projects } = this.props
     const { goToSection } = this
@@ -114,8 +118,8 @@ export class App extends PureComponent {
                     if(fullpageApi) this.fullpageApi = fullpageApi
                     return (
                       <div>
-                        <Home data={data.home} setSection={goToSection} onLoad={() => this.setState({ homeLoaded : true })} active={sections.currentSection === 1}/>
-                        <Projects data={data.projects} active={projects.active} setCurrentSlide={this.goToSlide} setProject={setProject} activeSlide={projects.activeSlide}/>
+                        <Home data={data.home} setSection={goToSection} onLoad={this.toggleLoader} active={sections.currentSection === 1}/>
+                        <Projects data={data.projects} onLoad={this.toggleLoader} isSectionActive={sections.currentSection === 2} active={projects.active} setCurrentSlide={this.goToSlide} setProject={setProject} activeSlide={projects.activeSlide}/>
                         <About data={data.about} active={sections.currentSection === 3}/>
                         <Thanks data={data.last} onClick={() => goToSection(1)} active={sections.currentSection === 4}/>
                       </div>

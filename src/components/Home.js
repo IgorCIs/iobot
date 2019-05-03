@@ -10,18 +10,27 @@ export default class Home extends PureComponent {
   }
 
   componentWillMount() {
+    const { data, onLoad } = this.props
+    
     setTimeout(() => {
-      if(!this.viewer) this.viewer = new CloudViewer(this._canvas, this.props.onLoad, this.props.data.color)
+      if(!this.viewer) this.viewer = new CloudViewer(this._canvas, () => onLoad(true), null, [data.model, data['model_small']])
     }, 0);
   }
   
   render() {
     const { data, active, setSection } = this.props
     animate(active, this.elements)
+    if (this.viewer) {
+      if (!active) {
+        this.viewer.enabled = false
+      } else {
+        this.viewer.enabled = true
+      }
+    }
 
     return (
       <div className='home fp-noscroll section'>
-        <div ref={node => this._canvas = node} id='homescene' className='scene'> </div>
+        <div style={{ backgroundColor: data.color }} ref={node => this._canvas = node} id='homescene' className='scene'> </div>
         <div ref={node => this.elements.push(node)} data-animation='fadeInRight' className='title'>
           <div>
             My name is <span onClick={() =>  setSection(3)}>Kuba</span>, <br/>I do cool sh*t & <br/> this is my <span onClick={() => setSection(2)}> book </span>

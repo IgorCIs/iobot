@@ -1,6 +1,8 @@
 {
   "title": "iobotic",
   "home": {
+    "model": "./models/skull.obj",
+    "model_small": "./models/skull2.obj",
     "color": "#d1cfd0",
     "links": {
       "email": "kuba@iobotic.com",
@@ -39,9 +41,9 @@
   },
   "projects": [
     {
-      "name": "some-project",
+      "title": "meow ",
+      "model": "./models/cat.obj",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ornare dolor a felis hendrerit, id convallis est sollicitudin. Curabitur iaculis sit amet magna eget iaculis. Cras sollicitudin placerat interdum. Cras pellentesque ex sed enim mollis sagittis. Curabitur aliquet leo ligula, ut imperdiet enim facilisis quis.  ",
-      "title": "project-name",
       "fist-slide-color": "#000000",
       "last-slide-color": "#000000",
       "images": [
@@ -49,11 +51,11 @@
         "https://i.ibb.co/0qFSK03/landscape-full-hwallpaper-downloalandscape-images-free-stock-images-colorful-widescreen-1920x1080-1.jpg",
         "https://i.ibb.co/WBy2cKV/widescreen-images-hd-photos-wallpaper-desktop-images-colors-free-images-stock-1920x1080.jpg"
       ]
-    },
-    {
-      "name": "second-project",
+    },  
+    {     
+      "title": "soccer",
+      "model": "./models/soccer.obj",
       "description": "asdsa da sd asd asd ,sdf sdjgsj ghdfj gdf jkgdf jgkhfdg ",
-      "title": "some-project",
       "fist-slide-color": "#00ff00",
       "last-slide-color": "#0000ff",
       "images": [
@@ -63,9 +65,9 @@
       ]
     },
     {
-      "name": "third-project",
+      "title": "woof woof",
+      "model": "./models/dog.obj",
       "description": "asdsa da sd asd asd ,sdf sdjgsj ghdfj gdf jkgdf jgkhfdg ",
-      "title-image": "it is a project",
       "fist-slide-color": "#ff3211",
       "last-slide-color": "#0000ff",
       "images": [
