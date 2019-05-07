@@ -2,12 +2,12 @@ import React, { PureComponent } from 'react'
 
 class Burger extends PureComponent {
   state = {
-    opened: false
+    closed: true
   }
 
   toggle = () => {
     this.setState(prevState => ({
-      opened: !prevState.opened
+      closed: !prevState.closed
     }))
   }
 
@@ -23,13 +23,13 @@ class Burger extends PureComponent {
   }
   
   render() {
-    const { opened } = this.state
+    const { closed } = this.state
     const { scrollTo, toggle, scrollToProject } = this
     const { active, projects, projectsData } = this.props
 
     return (
       <>
-        <div className={`navbar ${opened ? 'opened' : ''}`}> 
+        <div className={`navbar ${closed ? 'closed' : ''}`}> 
           <div className='navbar-logo'> </div>
           <div className='menu'> 
             <div className={`item ${active === 1 ? 'active' : '' }`} onClick={() => scrollTo(1)}> Start </div>
@@ -42,7 +42,7 @@ class Burger extends PureComponent {
           </div>
         </div>
           
-        <div onClick={toggle} className={`burger animated fadeInRight ${opened ? 'active' : '' }`}>
+        <div onClick={toggle} className={`burger animated fadeInRight ${closed ? '' : 'active' }`}>
           <div></div>
           <div></div>
           <div></div>

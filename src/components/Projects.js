@@ -12,7 +12,8 @@ export class Projects extends Component {
   }
 
   state = {
-    blockScroll: false
+    blockScroll: false,
+    openedImage: null
   }
   
   componentDidMount() {
@@ -21,22 +22,6 @@ export class Projects extends Component {
     // this.setScroll()
   }
 
-  // setScroll() {
-    // const scrollSlide = e => {
-      // if (e.deltaX) {
-      //   const delta = e.deltaX >= 1 ? 1 : -1
-      //   console.log(delta)
-      //   const nextSlide = this.slidesLength < this.props.activeSlide + 0 ? 1 : this.props.activeSlide + 1 
-      //   delta === 1 ? setCurrentSlide(nextSlide) : setCurrentSlide(this.props.activeSlide - 1)
-
-        
-      //   this._element.removeEventListener('mousewheel', scrollSlide)
-      //   this._element.addEventListener('mousewheel', scrollSlide)
-      // }
-    // }
-    
-    // this._element.addEventListener('mousewheel', scrollSlide)
-  // }
   
   setViewer() {
     const { data, active } = this.props
@@ -48,6 +33,7 @@ export class Projects extends Component {
 
   render() {
     const { isSectionActive, active, activeSlide, setCurrentSlide, data, onLoad } = this.props
+    const { openedImage } = this.state
 
     const activeProject = data[active]
     this.slidesLength = activeProject.images.length + 1
@@ -84,7 +70,7 @@ export class Projects extends Component {
           </div>
         </div>
 
-        {activeProject.images.map((item, i) =>       
+        {activeProject.images.map((item, i) =>
           <div key={i} className='slide fp-noscroll'> 
             <div className='image-slide' style={{ backgroundImage: `url(${item})` }}>
             </div>
@@ -93,7 +79,7 @@ export class Projects extends Component {
 
         <div className='slide descr-wrapper fp-noscroll' style={{background: activeProject['last-slide-color']}}>
           <div className='descr-slide' >
-            <div className='title' data-animation='projectsTitle' ref={node => this._title = node}> {activeProject.name} </div>
+            <div className='title' data-animation='projectsTitle' ref={node => this._title = node}> {activeProject.title} </div>
             <div className='descr'>
               {activeProject.description}
             </div>
@@ -107,6 +93,22 @@ export class Projects extends Component {
             </div>
           )}
         </div>
+
+        {activeSlide !== 0 && activeSlide !== this.slidesLength ? 
+          <div className='fit-image' onClick={() => this.setState({ openedImage: true })}></div>
+          : ''
+        }
+
+        {
+          openedImage ? 
+            <div className='image-popup'>
+              <div className='image-popup-close' onClick={() => this.setState({ openedImage: false })}> 
+                <div></div>
+                <div></div>
+              </div>
+              <img src={activeProject.images[activeSlide - 1]}/>
+            </div> : ''
+        }
       </div>
     )
   }

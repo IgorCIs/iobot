@@ -1,15 +1,15 @@
 import * as THREE from 'three';
-import OrbitControlls from 'three-orbitcontrols';
+// import OrbitControlls from 'three-orbitcontrols';
 import { OBJLoader } from 'three-obj-mtl-loader';
 import MorphCloudShader from './morphCloud';
 import DeviceOrientationControls from 'three-device-orientation'; 
-import isPhone from './useragent';
-
-// const isSmallSkull = false;
+import isMobile from 'is-mobile'
 
 export default class CloudViewer {
-  constructor(element, onLoad, color, initialModels, activeProject) {
+  constructor(element, onLoad, color, initialModels, activeProject, cameraPositionZ = 30) {
 
+    this.cameraPositionZ = cameraPositionZ;
+    this.minimalNormalSize = 400;
     this.initialModels = initialModels;
     this.sceneElement = element;
     this.onLoad = onLoad;
@@ -20,10 +20,9 @@ export default class CloudViewer {
     this.MainScene = new THREE.Scene();
     this.camera = new THREE.PerspectiveCamera(60, this.sceneElement.offsetWidth / this.sceneElement.offsetHeight , 0.1, 1000 );
     
-    this.controls = new OrbitControlls(this.camera, this.sceneElement);
     this.renderer = new THREE.WebGLRenderer({ alpha: !color });
-    this.camera.position.set(3, 32, 91);
-    this.camera.position.multiplyScalar(0.4);
+    this.camera.position.set(0, 0, cameraPositionZ);
+    // this.camera.position.multiplyScalar(0.4);
 
     if ( color ) {
       this.setColor(color);
@@ -41,21 +40,23 @@ export default class CloudViewer {
 
     this.mouseNormal = new THREE.Vector2();
 
-    this.controls.update() ;
     this.render();
 
     this.MainScene.add(this.cameraHolder);
 
     this.MeshControllers = [];
 
-    this.controls.enabled = false;
 
     this.enabled = true;
 
 
     this.initMouse();
-    this.loadModel(this.initialModels[0], onLoad)
+    this.loadModel(this.initialModels[0], onLoad);
     this.initResizer();
+    
+    // let box = new THREE.Box3().setFromObject(myObject3D)
+    // let sphere = box.getBoundingSphere()
+    // let centerPoint = sphere.center
   }
 
   initResizer(){
@@ -64,6 +65,13 @@ export default class CloudViewer {
       this.renderer.setSize(this.sceneElement.offsetWidth, this.sceneElement.offsetHeight );
       this.camera.aspect = this.sceneElement.offsetWidth / this.sceneElement.offsetHeight;
       this.camera.updateProjectionMatrix();
+
+      const currentMin = Math.min(this.sceneElement.offsetWidth, this.sceneElement.offsetHeight);
+      
+      if (currentMin < this.minimalNormalSize) {
+        this.camera.position.z = this.cameraPositionZ + this.cameraPositionZ * (1 - currentMin / this.minimalNormalSize); 
+      }
+      
     });
 
   }
@@ -80,14 +88,14 @@ export default class CloudViewer {
           let vertices = [];
 
           const DEFAULT_RADIUS_ASPECT = 22.465094820192128;
-          const defaultCenter = new THREE.Vector3().fromArray(  [ -0.0002498626708984375, -0.7617001533508301, 13.81304956227541 ] );
+          
+          const defaultCenter = new THREE.Vector3().fromArray(  [ 0, 0, 0 ] );
           const boundingSphere = new THREE.Box3().expandByObject( object ).getBoundingSphere( new THREE.Sphere() );
+
 
           const targetRadiusAspect = DEFAULT_RADIUS_ASPECT / boundingSphere.radius;
           const targetCenterOffset = defaultCenter.sub( boundingSphere.center );
 
-          console.log('model: ' + model.split('./models/')[1], boundingSphere);
-          
           object.traverse( ( nextObject ) => {
             if ( nextObject.isMesh ) {
               if ( nextObject.geometry ) {
@@ -98,10 +106,10 @@ export default class CloudViewer {
               }
             }
           });
-          console.log( targetCenterOffset );
           for (const nextVer of vertices) {
             nextVer.multiplyScalar(targetRadiusAspect);
             nextVer.add( targetCenterOffset );
+            nextVer.y += DEFAULT_RADIUS_ASPECT/2;
           }
           this.initShader( vertices, onLoad );
           
@@ -113,7 +121,6 @@ export default class CloudViewer {
   
   initShader( model, onLoad ) {
     this.modelGeometry = model;
-
     
     const ShadedMeshController = new MorphCloudShader({
       pathCount: 8,
@@ -121,11 +128,10 @@ export default class CloudViewer {
     });
 
     ShadedMeshController.shaderGeometry.rotateX( -Math.PI / 2);
-    ShadedMeshController.shaderGeometry.translate( 0, -10, 0 );
 
     this.MainScene.add( ShadedMeshController.shaderMesh );
 
-    if(isPhone()) ShadedMeshController.deviceOrientControll = new DeviceOrientationControls(new THREE.Object3D());
+    if(isMobile()) ShadedMeshController.deviceOrientControll = new DeviceOrientationControls(new THREE.Object3D());
     ShadedMeshController.defaultQ = ShadedMeshController.shaderMesh.quaternion.clone();
     
     this.MeshControllers.push( ShadedMeshController );
@@ -156,10 +162,10 @@ export default class CloudViewer {
 
         MainMesh.updateMouseNormal( this.mouseNormal );
         MainMesh.animate();
-        const toSinFunc = ( alpha ) => Math.sin( Math.PI / 2 * alpha )
+        const toSinFunc = ( alpha, offset ) => Math.sin( Math.PI / 2 * ( alpha + offset ) )
         const translateFactor = Math.PI / 2;
-        this.cameraHolder.rotation.x = 0 + toSinFunc( MainMesh.mouseOldestPosition.y ) * translateFactor * 0.2;
-        this.cameraHolder.rotation.y = 0 + -toSinFunc( MainMesh.mouseOldestPosition.x ) * translateFactor * 0.3;
+        this.cameraHolder.rotation.x = -0.2 + toSinFunc( MainMesh.mouseOldestPosition.y, 0 ) * translateFactor * 0.05;
+        this.cameraHolder.rotation.y = -toSinFunc( MainMesh.mouseOldestPosition.x, 0 ) * translateFactor * 0.1;
     }
     // this.controls.update()
 
@@ -171,7 +177,7 @@ export default class CloudViewer {
   }
 
   initMouse() {
-    if(!isPhone()) {
+    if(!isMobile()) {
       document.body.addEventListener('mousemove', (e) => {
         if( this.enabled ){
           const mp = { x: e.pageX, y: e.pageY };
