@@ -201,7 +201,6 @@ export function MorphCloudLines( config ){
                     
                 } else {
                 
-                
                     float timeScaleFactorAfter = timeScaleFactor * 0.7;
                     float pixelPScaleFactor = 0.2;
                     
@@ -220,34 +219,15 @@ export function MorphCloudLines( config ){
                     vec2 currentLtLn = xyz_to_lt_ln(  vec3( 1.0, 1.0, 0.0 ) );
                     
                     currentLtLn = getLatLngMod(
-                    
                         currentLtLn.x + 
                         ( mvPosition.x + mvPosition.z ) * pixelPScaleFactor + 
                         ( time * timeScaleFactorAfter * 0.5  ) * 
                         PI * 2.0,
-                        
                         currentLtLn.y + 
                         ( mvPosition.z - mvPosition.y ) * pixelPScaleFactor + 
                         ( time * timeScaleFactorAfter ) * 
                         PI
-                        
                     );
-                    
-                    // currentLtLn.x = getMod( 
-                    //     currentLtLn.x + 
-                    //     ( mvPosition.x + mvPosition.z ) * pixelPScaleFactor + 
-                    //     ( time * timeScaleFactorAfter * 0.5  ) * 
-                    //     PI * 2.0, 
-                    //     PI * 2.0 
-                    // ) ;  
-                    //
-                    // currentLtLn.y = -PI/ 2.0 + sin( getMod( 
-                    //     currentLtLn.y + 
-                    //     ( mvPosition.z - mvPosition.y ) * pixelPScaleFactor + 
-                    //     ( time * timeScaleFactorAfter ) * 
-                    //     PI, 
-                    //     PI 
-                    // ) ) * PI; 
                     
                     vec3 positionOfLtLn_default = lt_ln_to_xyz( 
                         currentLtLn.x, 

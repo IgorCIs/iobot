@@ -107,7 +107,7 @@ export default class CloudViewer {
             }
           });
           for (const nextVer of vertices) {
-            nextVer.multiplyScalar(targetRadiusAspect);
+            nextVer.multiplyScalar( targetRadiusAspect );
             nextVer.add( targetCenterOffset );
             nextVer.y += DEFAULT_RADIUS_ASPECT/2;
           }
