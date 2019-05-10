@@ -11,7 +11,7 @@ export function MorphCloudLines( config ){
             'raycastPoint': { value: new THREE.Vector3() },
             'raycastedPoints': { value: [ new THREE.Vector3() ] },
             'sunDirection': { value: new THREE.Vector3() },
-            'maxDistance': { value: 5.0 },
+            'maxDistance': { value: 8.0 },
             'pointSize': { value: 1.0 },
             'timeScaleFactor': { value:  0.003 },
             'uvScaleFactor': { value:  0.003 },
@@ -151,12 +151,18 @@ export function MorphCloudLines( config ){
             	worldPosition = pixelPosition;
             	
             	vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
-            	vec4 nearestRaycasted = getNearestRaycastedPoint( pixelPosition.xyz );
-            	// vec3 _raycastPoint = raycastPoint;
-            	// vec3 _raycastPoint = aproximatedRaycastedPoint();
-            	vec3 _raycastPoint = nearestRaycasted.xyz;
+            	vec4 tempNearest = getNearestRaycastedPoint( pixelPosition.xyz );
+            	tempNearest.x = -50.0 + 100.0 * sin( PI/2.0 * getMod( time * timeScaleFactor, 1.0 ) );
+            	vec4 nearestRaycasted = vec4(
+            	    tempNearest.x - pixelPosition.y,
+            	    pixelPosition.y,
+            	    0.0,
+            	    0.001
+            	);
             	
-            	distanceToRaycastPoint = distanceBetweenVec3( pixelPosition.xyz , _raycastPoint );
+            	vec3 _raycastPoint = nearestRaycasted.xyz;
+            	vec3 flatPixelPosition = vec3( pixelPosition.xy, 0.0 );
+            	distanceToRaycastPoint = distanceBetweenVec3( flatPixelPosition , _raycastPoint );
             
                 float distanceFactor;
                 vec4 finalGlPosition;
@@ -480,7 +486,6 @@ export function MorphCloudLines( config ){
             
                 color1.xyz = vec3( 0.6 );
                 
-                // float transparentFactor = 1. - r;
                 float transparentFactor = 1.;
                 color1.a = transparentFactor;
                 color1.xyz *= 0.9 + 0.1 * r;
@@ -488,7 +493,11 @@ export function MorphCloudLines( config ){
                 if( distanceToMouseAlpha < 0.0 ){
                     gl_FragColor = color1;
                 } else {
-                    vec4 color2 = vec4( .8 + .2 * sin( time * timeScaleFactor * 10. ) , 0., 0.0, transparentFactor );
+                    vec4 color2 = vec4( 
+                        .8 + .2 * sin( time * timeScaleFactor * 10. ) , 
+                        .8 + .2 * sin( time * timeScaleFactor * 10. ), 
+                        .8 + .2 * sin( time * timeScaleFactor * 10. ), 
+                        transparentFactor );
                     vec4 finalColor = ( color2 * distanceToMouseAlpha ) + ( color1 * ( 1.0 - distanceToMouseAlpha ) );
                     if( distanceToMouseAlpha < 1. ){
                         finalColor.w = distanceToMouseAlpha;
@@ -654,12 +663,17 @@ export function MorphCloud( config ){
             	worldPosition = pixelPosition;
             	
             	vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
-            	vec4 nearestRaycasted = getNearestRaycastedPoint( pixelPosition.xyz );
-            	// vec3 _raycastPoint = raycastPoint;
-            	// vec3 _raycastPoint = aproximatedRaycastedPoint();
+            	vec4 tempNearest = getNearestRaycastedPoint( pixelPosition.xyz );
+            	tempNearest.x = -50.0 + 100.0 * sin( PI/2.0  * getMod( time * timeScaleFactor, 1.0 ) );
+            	vec4 nearestRaycasted = vec4(
+            	    tempNearest.x - pixelPosition.y,
+            	    pixelPosition.y,
+            	    0.0,
+            	    0.001
+            	);
             	vec3 _raycastPoint = nearestRaycasted.xyz;
-            	
-            	distanceToRaycastPoint = distanceBetweenVec3( pixelPosition.xyz , _raycastPoint );
+            	vec3 flatPixelPosition = vec3( pixelPosition.xy, 0.0 );
+            	distanceToRaycastPoint = distanceBetweenVec3( flatPixelPosition.xyz , _raycastPoint );
             
                 float distanceFactor;
                 vec4 finalGlPosition;
@@ -697,22 +711,6 @@ export function MorphCloud( config ){
                     PI
                     
                 );
-                
-                // currentLtLn.x = getMod( 
-                //     currentLtLn.x + 
-                //     ( mvPosition.x + mvPosition.z ) * pixelPScaleFactor + 
-                //     ( time * timeScaleFactorAfter * 0.5  ) * 
-                //     PI * 2.0, 
-                //     PI * 2.0 
-                // ) ;  
-                //
-                // currentLtLn.y = -PI/ 2.0 + sin( getMod( 
-                //     currentLtLn.y + 
-                //     ( mvPosition.z - mvPosition.y ) * pixelPScaleFactor + 
-                //     ( time * timeScaleFactorAfter ) * 
-                //     PI, 
-                //     PI 
-                // ) ) * PI; 
                 
                 vec3 positionOfLtLn_default = lt_ln_to_xyz( 
                     currentLtLn.x, 
@@ -955,7 +953,11 @@ export function MorphCloud( config ){
                 if( distanceToMouseAlpha < 0.0 ){
                     gl_FragColor = color1;
                 } else {
-                    vec4 color2 = vec4( .8 + .2 * sin( time * timeScaleFactor * 10. ) , 0., 0.0, transparentFactor );
+                    vec4 color2 = vec4( 
+                        .8 + .2 * sin( time * timeScaleFactor * 10. ) , 
+                        .8 + .2 * sin( time * timeScaleFactor * 10. ), 
+                        .8 + .2 * sin( time * timeScaleFactor * 10. ), 
+                        transparentFactor );
                     vec4 finalColor = ( color2 * distanceToMouseAlpha ) + ( color1 * ( 1.0 - distanceToMouseAlpha ) );
                     gl_FragColor = finalColor;
                 }
@@ -1006,9 +1008,9 @@ export default class MorphCloudShader {
         this.shaderForMaterial = MorphCloud( {
             pathCount: this.config.pathCount
         } );
-        this.shaderForMaterial2 = MorphCloudLines( {
-            pathCount: this.config.pathCount
-        } );
+        // this.shaderForMaterial2 = MorphCloudLines( {
+        //     pathCount: this.config.pathCount
+        // } );
 
         this.shaderForMaterial.uniforms.lines.value = 3;
         this.shaderForMaterial.uniforms.time.value = 0;
@@ -1025,14 +1027,14 @@ export default class MorphCloudShader {
             transparent: true,
             side: THREE.BackSide
         } );
-        this.shaderMaterial2 = new THREE.ShaderMaterial( {
-            uniforms: this.shaderForMaterial2.uniforms,
-            vertexShader: this.shaderForMaterial2.vertexShader,
-            fragmentShader: this.shaderForMaterial2.fragmentShader,
-            transparent: true,
-            wireframe: true,
-            side: THREE.DoubleSide
-        } );
+        // this.shaderMaterial2 = new THREE.ShaderMaterial( {
+        //     uniforms: this.shaderForMaterial2.uniforms,
+        //     vertexShader: this.shaderForMaterial2.vertexShader,
+        //     fragmentShader: this.shaderForMaterial2.fragmentShader,
+        //     transparent: true,
+        //     wireframe: true,
+        //     side: THREE.DoubleSide
+        // } );
 
         this.shaderGeometry = new THREE.BufferGeometry();
         
@@ -1047,8 +1049,8 @@ export default class MorphCloudShader {
 
 
         this.shaderMesh = new THREE.Points( this.shaderGeometry,  this.shaderMaterial );
-        this.shaderMesh2 = new THREE.Mesh( this.shaderGeometry,  this.shaderMaterial2 );
-        this.shaderMesh.add( this.shaderMesh2 );
+        // this.shaderMesh2 = new THREE.Mesh( this.shaderGeometry,  this.shaderMaterial2 );
+        // this.shaderMesh.add( this.shaderMesh2 );
 
         console.log( this );
 
@@ -1072,27 +1074,27 @@ export default class MorphCloudShader {
             this.animationFuntction();
             this.shaderMaterial.uniforms[ 'eye' ].value = this.camera.position.clone();
             this.shaderMaterial.uniforms[ 'time' ].value += 1;
-            this.shaderMaterial2.uniforms[ 'eye' ].value = this.camera.position.clone();
-            this.shaderMaterial2.uniforms[ 'time' ].value += 1;
+            // this.shaderMaterial2.uniforms[ 'eye' ].value = this.camera.position.clone();
+            // this.shaderMaterial2.uniforms[ 'time' ].value += 1;
             this.shaderMaterial.needsUpdate = true;
         }
     }
 
     initAnimationProperties(){
 
-        const lastPoint = new THREE.Vector3();
-        const currentRaycastedPoint = new THREE.Vector3();
-        const pointForDisable = new THREE.Vector3( 0, 0, 0 );
-        const vec0 = new THREE.Vector3( 0, 0, 0 );
+        // const lastPoint = new THREE.Vector3();
+        // const currentRaycastedPoint = new THREE.Vector3();
+        // const pointForDisable = new THREE.Vector3( 0, 0, 0 );
+        // const vec0 = new THREE.Vector3( 0, 0, 0 );
 
-        let framesToMorph = 120;
-        let currentFrame = framesToMorph;
+        // let framesToMorph = 120;
+        // let currentFrame = framesToMorph;
 
 
         let raycastedPoints = [];
         for( let i = 0; i < this.config.pathCount; i++  ){ raycastedPoints.push( new THREE.Vector3() ); }
         this.shaderMaterial.uniforms[ 'raycastedPoints' ].value = raycastedPoints;
-        this.shaderMaterial2.uniforms[ 'raycastedPoints' ].value = raycastedPoints;
+        // this.shaderMaterial2.uniforms[ 'raycastedPoints' ].value = raycastedPoints;
 
         this.animationFuntction = () => {
 
@@ -1103,59 +1105,58 @@ export default class MorphCloudShader {
                 this.useUpdateMouseAction( this.mouseHistory[ this.mouseStandByPosition ] );
             }
 
-            let raycastedPoint = this.raycastModel();
+            // let raycastedPoint = this.raycastModel();
 
-            if ( raycastedPoint.length > 0 ) {
-
-                // console.log( 'i am there', raycastedPoint);
-
-                if( this.shaderForMaterial.uniforms.alpha.value < 1 ){
-                    this.shaderForMaterial.uniforms.alpha.value += 1 / framesToMorph / 115;
-                } else if ( this.shaderForMaterial.uniforms.alpha.value > 1 ){
-                    this.shaderForMaterial.uniforms.alpha.value = 1;
-                }
-
-                currentFrame = framesToMorph;
-
-                currentRaycastedPoint.copy( raycastedPoint[ 0 ].point );
-
-                lastPoint.copy( currentRaycastedPoint );
-
-                this.shaderMaterial.uniforms[ 'raycastPoint' ].value = currentRaycastedPoint;
-
-                raycastedPoints.push( lastPoint.clone() );
-                if( raycastedPoints.length > this.config.pathCount ) { raycastedPoints.shift(); }
-                this.shaderMaterial.uniforms[ 'raycastedPoints' ].value = raycastedPoints;
-
-            } else {
-
-                // console.log( 'testtesttest' );
-
-                if( this.shaderForMaterial.uniforms.alpha.value > 0 ){
-                    this.shaderForMaterial.uniforms.alpha.value -= 1 / framesToMorph * 3;
-                } else if ( this.shaderForMaterial.uniforms.alpha.value < 0 ){
-                    this.shaderForMaterial.uniforms.alpha.value = 0;
-                }
-
-                if ( !lastPoint.equals( vec0 ) ) {
-                    pointForDisable.copy( lastPoint );
-                    pointForDisable.multiplyScalar( 4 );
-                    if ( currentFrame > 0 ) {
-                        let nextPoint = pointForDisable.lerp( lastPoint, Math.sin( currentFrame / framesToMorph * Math.PI / 2 ) );
-                        this.shaderMaterial.uniforms[ 'raycastPoint' ].value = nextPoint;
-                        raycastedPoints.push( nextPoint );
-                        if( raycastedPoints.length > this.config.pathCount ) { raycastedPoints.shift(); }
-                        this.shaderMaterial.uniforms[ 'raycastedPoints' ].value = raycastedPoints;
-
-                        currentFrame--;
-                    } else {
-                        raycastedPoints.push( pointForDisable );
-                        if( raycastedPoints.length > this.config.pathCount ) { raycastedPoints.shift(); }
-                        this.shaderMaterial.uniforms[ 'raycastedPoints' ].value = raycastedPoints;
-                        this.shaderMaterial.uniforms[ 'raycastPoint' ].value = pointForDisable;
-                    }
-                }
-            }
+            // if ( raycastedPoint.length > 0 ) {
+            //
+            //     // console.log( 'i am there', raycastedPoint);
+            //
+            //     if( this.shaderForMaterial.uniforms.alpha.value < 1 ){
+            //         this.shaderForMaterial.uniforms.alpha.value += 1 / framesToMorph / 115;
+            //     } else if ( this.shaderForMaterial.uniforms.alpha.value > 1 ){
+            //         this.shaderForMaterial.uniforms.alpha.value = 1;
+            //     }
+            //
+            //     currentFrame = framesToMorph;
+            //
+            //     currentRaycastedPoint.copy( raycastedPoint[ 0 ].point );
+            //
+            //     lastPoint.copy( currentRaycastedPoint );
+            //
+            //     this.shaderMaterial.uniforms[ 'raycastPoint' ].value = currentRaycastedPoint;
+            //     raycastedPoints.push( lastPoint.clone() );
+            //     if( raycastedPoints.length > this.config.pathCount ) { raycastedPoints.shift(); }
+            //     this.shaderMaterial.uniforms[ 'raycastedPoints' ].value = raycastedPoints;
+            //
+            // } else {
+            //
+            //     // console.log( 'testtesttest' );
+            //
+            //     if( this.shaderForMaterial.uniforms.alpha.value > 0 ){
+            //         this.shaderForMaterial.uniforms.alpha.value -= 1 / framesToMorph * 3;
+            //     } else if ( this.shaderForMaterial.uniforms.alpha.value < 0 ){
+            //         this.shaderForMaterial.uniforms.alpha.value = 0;
+            //     }
+            //
+            //     if ( !lastPoint.equals( vec0 ) ) {
+            //         pointForDisable.copy( lastPoint );
+            //         pointForDisable.multiplyScalar( 4 );
+            //         if ( currentFrame > 0 ) {
+            //             let nextPoint = pointForDisable.lerp( lastPoint, Math.sin( currentFrame / framesToMorph * Math.PI / 2 ) );
+            //             this.shaderMaterial.uniforms[ 'raycastPoint' ].value = nextPoint;
+            //             raycastedPoints.push( nextPoint );
+            //             if( raycastedPoints.length > this.config.pathCount ) { raycastedPoints.shift(); }
+            //             this.shaderMaterial.uniforms[ 'raycastedPoints' ].value = raycastedPoints;
+            //
+            //             currentFrame--;
+            //         } else {
+            //             raycastedPoints.push( pointForDisable );
+            //             if( raycastedPoints.length > this.config.pathCount ) { raycastedPoints.shift(); }
+            //             this.shaderMaterial.uniforms[ 'raycastedPoints' ].value = raycastedPoints;
+            //             this.shaderMaterial.uniforms[ 'raycastPoint' ].value = pointForDisable;
+            //         }
+            //     }
+            // }
 
 
         };
@@ -1163,19 +1164,19 @@ export default class MorphCloudShader {
     }
 
     remove(){
-        this.shaderMesh2.parent.remove( this.shaderMesh2 );
+        // this.shaderMesh2.parent.remove( this.shaderMesh2 );
         this.shaderMesh.parent.remove( this.shaderMesh );
 
         this.shaderMesh.geometry.dispose();
         this.shaderMesh.material.dispose();
-        this.shaderMesh2.material.dispose();
+        // this.shaderMesh2.material.dispose();
 
         this.shaderMaterial.dispose();
-        this.shaderMaterial2.dispose();
+        // this.shaderMaterial2.dispose();
         this.shaderGeometry.dispose();
 
         this.shaderMaterial = null;
-        this.shaderMaterial2 = null;
+        // this.shaderMaterial2 = null;
         this.shaderGeometry = null;
     }
 

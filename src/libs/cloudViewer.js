@@ -160,7 +160,7 @@ export default class CloudViewer {
         }
         
 
-        // MainMesh.updateMouseNormal( this.mouseNormal );
+        MainMesh.updateMouseNormal( this.mouseNormal );
         MainMesh.animate();
         const toSinFunc = ( alpha, offset ) => Math.sin( Math.PI / 2 * ( alpha + offset ) )
         const translateFactor = Math.PI / 2;
