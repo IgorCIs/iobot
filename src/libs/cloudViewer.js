@@ -123,7 +123,7 @@ export default class CloudViewer {
     this.modelGeometry = model;
     
     const ShadedMeshController = new MorphCloudShader({
-      pathCount: 8,
+      pathCount: 1,
       vertices: this.modelGeometry
     });
 
@@ -160,7 +160,7 @@ export default class CloudViewer {
         }
         
 
-        MainMesh.updateMouseNormal( this.mouseNormal );
+        // MainMesh.updateMouseNormal( this.mouseNormal );
         MainMesh.animate();
         const toSinFunc = ( alpha, offset ) => Math.sin( Math.PI / 2 * ( alpha + offset ) )
         const translateFactor = Math.PI / 2;
