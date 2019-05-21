@@ -7,10 +7,10 @@ const callApi = (url, options) =>
       ),
       error => Promise.reject(error))
     .then(
-      json => ({json}),
-      error => ({error})
+      json => ({ json }),
+      error => ({ error })
     )
-    .catch(error => (console.log({ error })))
+    .catch(error => console.log({ error }))
 
 export {
   callApi

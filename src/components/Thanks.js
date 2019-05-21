@@ -2,12 +2,8 @@ import React, { Component } from 'react'
 import { animate } from '../libs/animateNode';
 
 export class Thanks extends Component {
-  constructor(props) {
-    super(props)
+  elements = []
 
-    this.elements = []
-  }
-  
   render() {
     const { data, active } = this.props
     animate(active, this.elements)

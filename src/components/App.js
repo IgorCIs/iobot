@@ -89,7 +89,6 @@ export class App extends PureComponent {
     const { goToSection } = this
     const { contentLoaded, homeLoaded } = this.state
     if(data && (data.title !== document.title)) document.title = data.title
-
     
     return ( 
       <>
@@ -103,14 +102,13 @@ export class App extends PureComponent {
                 scrollOverflow={true}
                 scrollHorizontally={true}
                 onLeave={(origin, destination, direction) => {
-                  // origin.index !== 1 && 
                   this.scroll(destination)
-                  // if (!this.state.blockSlider) {
-                  //   return this.scrollSlider({ origin, destination, direction, scroll: this.scroll })
-                  // }
                   this.setState({blockSlider: false})
                 }}  
                 onSlideLeave={(origin, destination, direction) => {
+                  if(destination.isLast && direction.isFirst) {
+                    return false 
+                  }
                   setCurrentSlide(direction.index)
                 }}  
                 render={

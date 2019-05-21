@@ -5,7 +5,7 @@ export class Pagination extends PureComponent {
     return (
       <div className='pagination'>
         {
-          [...Array(4)].map((item, i) =>  (
+          [...Array(4)].map((_, i) =>  (
             <div className={`item ${this.props.active === i + 1 ? 'active' : '' }`} key={i} onClick={() => this.props.onClick(i + 1)}> </div>
           ))
         } 

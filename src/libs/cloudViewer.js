@@ -3,19 +3,17 @@ import * as THREE from 'three';
 import { OBJLoader } from 'three-obj-mtl-loader';
 import MorphCloudShader from './morphCloud';
 import DeviceOrientationControls from 'three-device-orientation'; 
-import isMobile from 'is-mobile'
+import isMobile from './useragent'
+
 
 export default class CloudViewer {
   constructor(element, onLoad, color, initialModels, activeProject, cameraPositionZ = 30) {
-
     this.cameraPositionZ = cameraPositionZ;
     this.minimalNormalSize = 400;
     this.initialModels = initialModels;
     this.sceneElement = element;
     this.onLoad = onLoad;
     this.activeProject = activeProject
-
-
     
     this.MainScene = new THREE.Scene();
     this.camera = new THREE.PerspectiveCamera(60, this.sceneElement.offsetWidth / this.sceneElement.offsetHeight , 0.1, 1000 );

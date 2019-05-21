@@ -1,8 +1,5 @@
 import React, { Component } from 'react'
-import { animate } from '../libs/animateNode';
 import CloudViewer from './../libs/cloudViewer.js'
-
-
 
 export class Projects extends Component {
   constructor(props) {
@@ -19,9 +16,19 @@ export class Projects extends Component {
   componentDidMount() {
     this.setViewer()
     this.events = 0
-    // this.setScroll()
   }
 
+  componentDidUpdate() {
+    const { active, activeSlide, data } = this.props
+
+    const isImage = data[active].images[activeSlide - 1]
+
+    if(!isImage & this.state.openedImage) {
+      this.setState({ openedImage: false })
+    }
+
+
+  }
   
   setViewer() {
     const { data, active } = this.props
@@ -53,13 +60,7 @@ export class Projects extends Component {
       }
     }
 
-    if (this.slidesLength === activeSlide) {
-      setTimeout(() => animate(true, [this._title], f=>f, true), 1000)
-    } else {
-      setTimeout(() => {
-        if(this._title)this._title.classList.remove('animated', this._title.dataset.animation)
-      }, 100)
-    }
+
 
     return (
       <div className={`section fp-noscroll projects`} ref={node => this._element = node} data-slides={`${(activeProject.images.length === activeSlide - 1) ? 'last' : ''}${activeSlide === 0 ? 'first' : ''}`}>
@@ -79,7 +80,7 @@ export class Projects extends Component {
 
         <div className='slide descr-wrapper fp-noscroll' style={{background: activeProject['last-slide-color']}}>
           <div className='descr-slide' >
-            <div className='title' data-animation='projectsTitle' ref={node => this._title = node}> {activeProject.title} </div>
+            <div className='title' data-animation='projectsTitle'> {activeProject.title} </div>
             <div className='descr'>
               {activeProject.description}
             </div>
@@ -106,7 +107,7 @@ export class Projects extends Component {
                 <div></div>
                 <div></div>
               </div>
-              <img src={activeProject.images[activeSlide - 1]}/>
+              <img src={activeProject.images[activeSlide - 1]} alt='project img'/>
             </div> : ''
         }
       </div>

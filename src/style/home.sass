@@ -90,6 +90,7 @@
       justify-content: space-between
       max-width: 450px
       a
+        pointer-events: auto
         color: $red
         animation-duration: 3s
         font-weight: 500
@@ -97,8 +98,8 @@
 
   +media($media-md)
     .title
+      text-align: left
       width: 100%
-      text-align: center
       justify-content: center
     
     .contacts
@@ -117,6 +118,9 @@
 
   
   .home
+    .title
+        text-align: left
+        
     .contacts
       // font-size: 15px
       .wrapper
