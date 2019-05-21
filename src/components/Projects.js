@@ -12,7 +12,7 @@ class Project extends Component {
   }
 
   setSlide(activeSlide) {
-    console.log(this.props.fullpageApi.moveTo(this.props.section, activeSlide))
+    this.props.fullpageApi.moveTo(this.props.section + 1, activeSlide)
     this.setState({ activeSlide })
   }
 
@@ -79,7 +79,7 @@ class Project extends Component {
         
         <div className='pagination-list'>
           {[...images, ')', ')'].map((_, i) => 
-            <div key={i} onClick={() => this.setSlide(i)} className={`item ${activeSlide === i ? 'active' : '' }`}>
+            <div key={i} onClick={() => this.setSlide(i )} className={`item ${activeSlide === i ? 'active' : '' }`}>
               <div/>
             </div>
           )}

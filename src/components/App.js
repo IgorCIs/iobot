@@ -25,7 +25,6 @@ export class App extends PureComponent {
 
   state = {
     contentLoaded: false,
-    blockSlider: false,
     homeLoaded: false,
   }
   
@@ -35,7 +34,6 @@ export class App extends PureComponent {
   
   goToSection(i) {
     this.props.setCurrentSection(i)
-    console.log(i)
     this.fullpageApi.moveTo(i)
   } 
 
@@ -45,28 +43,6 @@ export class App extends PureComponent {
 
   unMountLoader() {
     this.setState({contentLoaded: true})
-  }
-
-  scrollSlider({ origin, destination, direction, scroll }) {
-    const { projects, data } = this.props
-    const project = data.projects[projects.active]
-    const projectLength = project.images.length + 1
-
-    
-    if (origin.index === 1) {
-      if (direction === 'up' && projects.activeSlide !== 0) {
-        this.fullpageApi.moveSlideLeft()
-        return false
-      } else if (direction === 'down' && project.activeSlide !== projectLength ) {
-        this.fullpageApi.moveSlideRight()
-        const res = direction === 'down' && projects.activeSlide === projectLength
-        res && scroll(destination)
-        return res
-      } else {
-        scroll(destination)
-        return true
-      }
-    }
   }
 
   scroll(destination) {
@@ -100,6 +76,7 @@ export class App extends PureComponent {
                 }}  
                 onSlideLeave={(origin, destination, direction) => {
                   this.slideChanges = {origin, destination, direction}
+
                   if(destination.isLast && direction.isFirst) {
                     return false 
                   }
