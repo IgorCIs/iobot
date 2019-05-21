@@ -223,13 +223,10 @@ export function MorphCloud( config ){
                 vColor = normalize( finalGlPosition );
                 
                 if ( gl_Position.w > 0.0 ) {
-                
                     gl_PointSize = 12.0 * pointSize / gl_Position.w + ( pointSize * distanceFactor * 0.5 );
-                    
                     if( distanceFactor > 0.12 ){
                         gl_PointSize = gl_PointSize + 4.0 * ( distanceFactor * 3.0 );
                     }
-                    
                 } else {
                     gl_PointSize = 3.0;
                 }
