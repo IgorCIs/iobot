@@ -1,0 +1,80 @@
+{
+  "title": "iobotic",
+  "home": {
+    "model": "./models/skull.obj",
+    "model_small": "./models/skull2.obj",
+    "color": "#d1cfd0",
+    "links": {
+      "email": "kuba@iobotic.com",
+      "mobile": "+971 55 496 8206"
+    }
+  },
+  "about": {
+    "title": "Kuba Skowronski",
+    "subtitle": "INTEGRATED DESIGN DIRECTOR",
+    "text": {
+      "column1": {
+        "title": "Short info",
+        "paragraphs": [
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id bibendum ligula. Fusce sed vulputate leo, dictum malesuada urna. Vestibulum dictum sed nulla ac tincidunt. Nulla eget maximus dolor, vel viverra sapien.",
+          "Nullam sem ante, egestas condimentum semper ac, sagittis vel dui.",
+          "Vestibulum dictum sed nulla ac tincidunt. Nulla eget maximus dolor, vel viverra sapien."
+        ]        
+      },
+      "column2": {
+        "title": "Awards & Recognition ",
+        "paragraphs": [
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id bibendum ligula. Fusce sed vulputate leo, dictum malesuada urna. Vestibulum dictum sed nulla ac tincidunt. Nulla eget maximus dolor, vel viverra sapien. In vulputate metus vitae sem pulvinar, maximus luctus odio vestibulum. Praesent pulvinar lacinia nunc ut laoreet. Donec quam lacus, consequat sit amet vestibulum eget, dapibus id mi. Proin ullamcorper, risus sit amet gravida semper, justo mi porta massa, ac ornare enim erat dapibus mi. Pellentesque quis faucibus enim.",
+          "Vestibulum sed magna a tellus cursus iaculis. In blandit tempor aliquam. Donec a egestas diam. Morbi id volutpat ipsum, pellentesque maximus nisl. Nulla non nulla in sem imperdiet feugiat vitae vitae eros. Suspendisse ullamcorper aliquet orci mollis vestibulum. Nullam sem ante, egestas condimentum semper ac, sagittis vel dui."
+        ]        
+      }
+    },
+    "cvLink": "http://somelink.com/"
+  },
+  "last": {
+    "title": "Thank you",
+    "subtitle": "Havent had enough?",
+    "links": {
+      "email": "kuba@iobotic.com",
+      "mobile": "+971 55 496 8206"
+    }
+  },
+  "projects": [
+    {
+      "title": "meow ",
+      "model": "./models/cat.obj",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ornare dolor a felis hendrerit, id convallis est sollicitudin. Curabitur iaculis sit amet magna eget iaculis. Cras sollicitudin placerat interdum. Cras pellentesque ex sed enim mollis sagittis. Curabitur aliquet leo ligula, ut imperdiet enim facilisis quis.  ",
+      "fist-slide-color": "#000000",
+      "last-slide-color": "#000000",
+      "images": [
+        "https://i.ibb.co/XJk21VG/GoYcMqd.jpg",
+        "https://i.ibb.co/0qFSK03/landscape-full-hwallpaper-downloalandscape-images-free-stock-images-colorful-widescreen-1920x1080-1.jpg",
+        "https://i.ibb.co/WBy2cKV/widescreen-images-hd-photos-wallpaper-desktop-images-colors-free-images-stock-1920x1080.jpg"
+      ]
+    },  
+    {     
+      "title": "soccer",
+      "model": "./models/soccer.obj",
+      "description": "asdsa da sd asd asd ,sdf sdjgsj ghdfj gdf jkgdf jgkhfdg ",
+      "fist-slide-color": "#000000",
+      "last-slide-color": "#0000ff",
+      "images": [
+        "https://i.ibb.co/XJk21VG/GoYcMqd.jpg",
+        "https://i.ibb.co/WBy2cKV/widescreen-images-hd-photos-wallpaper-desktop-images-colors-free-images-stock-1920x1080.jpg",
+        "https://i.ibb.co/0qFSK03/landscape-full-hwallpaper-downloalandscape-images-free-stock-images-colorful-widescreen-1920x1080-1.jpg"
+      ]
+    },
+    {
+      "title": "woof woof",
+      "model": "./models/dog.obj",
+      "description": "asdsa da sd asd asd ,sdf sdjgsj ghdfj gdf jkgdf jgkhfdg ",
+      "fist-slide-color": "#ff3211",
+      "last-slide-color": "#0000ff",
+      "images": [
+        "https://i.ibb.co/XJk21VG/GoYcMqd.jpg",
+        "https://i.ibb.co/WBy2cKV/widescreen-images-hd-photos-wallpaper-desktop-images-colors-free-images-stock-1920x1080.jpg",
+        "https://i.ibb.co/0qFSK03/landscape-full-hwallpaper-downloalandscape-images-free-stock-images-colorful-widescreen-1920x1080-1.jpg"
+      ]
+    }
+  ]
+}
