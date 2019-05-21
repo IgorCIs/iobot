@@ -234,8 +234,6 @@ export function MorphCloud( config ){
                     gl_PointSize = 3.0;
                 }
                 
-            	
-            	
             }
         `,
 
