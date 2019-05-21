@@ -1,118 +1,117 @@
 import React, { Component } from 'react'
 import CloudViewer from './../libs/cloudViewer.js'
 
-export class Projects extends Component {
-  constructor(props) {
-    super(props)
-    this.canvases = []
-    this.images = []
+class Project extends Component {
+  state = {
+    openedImage: null,
+    activeSlide: 0,
   }
 
-  state = {
-    blockScroll: false,
-    openedImage: null
-  }
-  
   componentDidMount() {
     this.setViewer()
-    this.events = 0
+  }
+
+  setSlide(activeSlide) {
+    console.log(this.props.fullpageApi.moveTo(this.props.section, activeSlide))
+    this.setState({ activeSlide })
   }
 
   componentDidUpdate() {
-    const { active, activeSlide, data } = this.props
+    const { data, slideChanges, section, isSectionActive} = this.props
+    const { activeSlide } = this.state
+    const isActive = slideChanges ? section === slideChanges.origin.index : false
 
-    const isImage = data[active].images[activeSlide - 1]
+    if(isActive && activeSlide !== slideChanges.direction.index) {
+      this.setState({ activeSlide: slideChanges.direction.index })
+    }
+
+    const isImage = data.images[activeSlide - 1]
 
     if(!isImage & this.state.openedImage) {
       this.setState({ openedImage: false })
     }
 
-
+    if (isSectionActive && activeSlide === 0 && this.viewer) {
+      
+      if(this.viewer) this.viewer.enabled = true
+    } else {     
+      if(this.viewer) this.viewer.enabled = false
+    }
   }
-  
+
   setViewer() {
-    const { data, active } = this.props
+    const { data, active, onLoad } = this.props
 
     setTimeout(() => {
-      if(!this.viewer) this.viewer = new CloudViewer(this._canvas, () => this.setState({ loader: false }), data[active]['fist-slide-color'], [data[0].model], active)
+      this.viewer = new CloudViewer(this._canvas, onLoad, data['fist-slide-color'], [data.model], active)
     }, 0)
   }
 
   render() {
-    const { isSectionActive, active, activeSlide, setCurrentSlide, data, onLoad } = this.props
-    const { openedImage } = this.state
-
-    const activeProject = data[active]
-    this.slidesLength = activeProject.images.length + 1
+    const { data } = this.props
+    const { images, title, description } = this.props.data
+    const { activeSlide, openedImage } = this.state
     
-    if (this.viewer) {
-      if (this.viewer.activeProject !== active) {
-        this.viewer.activeProject = active
-        this.viewer.loadModel(activeProject.model, () => onLoad(true))
-        this.viewer.setColor(activeProject['fist-slide-color'])
-        setTimeout(() => onLoad(false), 0)
-      }
-      
-      if (isSectionActive && activeSlide === 0) {
-        this.viewer.enabled = true
-      } else {
-        this.viewer.true = false
-      }
-    }
-
-
-
     return (
-      <div className={`section fp-noscroll projects`} ref={node => this._element = node} data-slides={`${(activeProject.images.length === activeSlide - 1) ? 'last' : ''}${activeSlide === 0 ? 'first' : ''}`}>
+      <div className={`section fp-noscroll projects`} ref={node => this._element = node} data-slides={`${activeSlide === 0 ? 'first' : ''}${activeSlide === images.length + 1 ? 'last' : ''}`} >
         <div className='slide fp-noscroll'>
           <div className='first-slide'>
-            <div className='main-title'> {activeProject.title} </div>
+            <div className='main-title'> {data.title} </div>
             <div ref={node => this._canvas = node} className='project-scene'> </div>
           </div>
         </div>
-
-        {activeProject.images.map((item, i) =>
+        
+        {images.map((item, i) =>
           <div key={i} className='slide fp-noscroll'> 
             <div className='image-slide' style={{ backgroundImage: `url(${item})` }}>
             </div>
           </div>)
         }
 
-        <div className='slide descr-wrapper fp-noscroll' style={{background: activeProject['last-slide-color']}}>
+        <div className='slide descr-wrapper fp-noscroll' style={{background: data['last-slide-color']}}>
           <div className='descr-slide' >
-            <div className='title' data-animation='projectsTitle'> {activeProject.title} </div>
+            <div className='title' data-animation='projectsTitle'> {title} </div>
             <div className='descr'>
-              {activeProject.description}
+              {description}
             </div>
           </div>
         </div>
-
+        
         <div className='pagination-list'>
-          {[...activeProject.images, 's', 's'].map((item, i) => 
-            <div key={i} onClick={() => setCurrentSlide(i)}  className={`item ${activeSlide === i ? 'active' : '' }`}>
+          {[...images, ')', ')'].map((_, i) => 
+            <div key={i} onClick={() => this.setSlide(i)} className={`item ${activeSlide === i ? 'active' : '' }`}>
               <div/>
             </div>
           )}
         </div>
 
-        {activeSlide !== 0 && activeSlide !== this.slidesLength ? 
+        {activeSlide !== 0 && activeSlide !== images.length + 1 ? 
           <div className='fit-image' onClick={() => this.setState({ openedImage: true })}></div>
           : ''
         }
 
-        {
-          openedImage ? 
-            <div className='image-popup'>
-              <div className='image-popup-close' onClick={() => this.setState({ openedImage: false })}> 
-                <div></div>
-                <div></div>
-              </div>
-              <img src={activeProject.images[activeSlide - 1]} alt='project img'/>
-            </div> : ''
+        {openedImage ? 
+          <div className='image-popup'>
+            <div className='image-popup-close' onClick={() => this.setState({ openedImage: false })}> 
+              <div></div>
+              <div></div>
+            </div>
+            <img src={images[activeSlide - 1]} alt='project img'/>
+          </div> : ''
         }
+
       </div>
+
     )
   }
 }
+
+const Projects = ({ data, onLoad, fullpageApi, slideChanges, active }) => (
+  <>
+    {data.map((project, i) => (
+      <Project onLoad={onLoad} data={project} slideChanges={slideChanges} isSectionActive={active === i + 2} fullpageApi={fullpageApi} key={i} section={i + 1}/>
+    ))}
+  </>
+)
 
 export default Projects

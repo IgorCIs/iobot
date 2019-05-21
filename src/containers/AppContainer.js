@@ -23,8 +23,8 @@ export default connect(
       setProject(project) {
         dispatch(setCurrentProject(project))
       },
-      setCurrentSlide(slide) {
-        dispatch(setCurrentSlide(slide))
+      setCurrentSlide(slide, project) {
+        dispatch(setCurrentSlide(slide, project))
       }
 
     })

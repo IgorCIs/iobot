@@ -17,7 +17,7 @@ const projects = (state = initialState, action) => {
         case ActionTypes.SET_PROJECT_SLIDE:
           return {
             ...state,
-            activeSlide: action.slide
+            activeSlide: action.slide,
           }
           
         default:

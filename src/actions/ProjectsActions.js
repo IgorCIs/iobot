@@ -6,9 +6,10 @@ const setCurrentProject = project =>
     project
   })
 
-const setCurrentSlide = slide => 
+const setCurrentSlide = (slide, project) => 
   ({
     type: ActionTypes.SET_PROJECT_SLIDE,
+    project,
     slide
   })
 

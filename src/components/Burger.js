@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react'
+import isMobile from 'is-mobile'
 
 class Burger extends PureComponent {
   state = {
@@ -16,29 +17,29 @@ class Burger extends PureComponent {
     this.props.onClick(index)
   }
 
-  scrollToProject = project => {
+  scrollToProject = (project) => {
     this.toggle()
-    this.props.onClick(2, false)
+    this.props.onClick(project + 2)
     this.props.setProject(project)
   }
   
   render() {
     const { closed } = this.state
     const { scrollTo, toggle, scrollToProject } = this
-    const { active, projects, projectsData } = this.props
+    const { active, projectsData } = this.props
 
     return (
       <>
         <div className={`navbar ${closed ? 'closed' : ''}`}> 
-          <div className='navbar-logo'> </div>
+          <div className={`${isMobile() ? 'mobile' : ''} navbar-logo`}> </div>
           <div className='menu'> 
             <div className={`item ${active === 1 ? 'active' : '' }`} onClick={() => scrollTo(1)}> Start </div>
             {
               projectsData.map((item, i) => (
-                <div key={i} onClick={() => scrollToProject(i)} className={`item ${active === 2 && projects.active === i ? 'active' : ''}`}> {item.title} </div>
+                <div key={i} onClick={() => scrollToProject(i)} className={`item ${active === i + 2 ? 'active' : ''}`}> {item.title} </div>
               ))
             }
-            <div className={`item ${active === 3? 'active' : ''}`} onClick={() => scrollTo(3)}> About me </div>
+            <div className={`item ${active === projectsData.length + 2 ? 'active' : ''}`} onClick={() => scrollTo(projectsData.length + 2)}> About me </div>
           </div>
         </div>
           
