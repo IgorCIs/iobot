@@ -1,16 +1,16 @@
 {
-  "main.css": "/iobot/static/css/main.a9cabf05.chunk.css",
-  "main.js": "/iobot/static/js/main.8b953a85.chunk.js",
-  "main.js.map": "/iobot/static/js/main.8b953a85.chunk.js.map",
+  "main.css": "/iobot/static/css/main.c2f15e4a.chunk.css",
+  "main.js": "/iobot/static/js/main.d81c6648.chunk.js",
+  "main.js.map": "/iobot/static/js/main.d81c6648.chunk.js.map",
   "runtime~main.js": "/iobot/static/js/runtime~main.8245f0cd.js",
   "runtime~main.js.map": "/iobot/static/js/runtime~main.8245f0cd.js.map",
   "static/css/2.d2d906c1.chunk.css": "/iobot/static/css/2.d2d906c1.chunk.css",
-  "static/js/2.a9b77bf1.chunk.js": "/iobot/static/js/2.a9b77bf1.chunk.js",
-  "static/js/2.a9b77bf1.chunk.js.map": "/iobot/static/js/2.a9b77bf1.chunk.js.map",
+  "static/js/2.312780a8.chunk.js": "/iobot/static/js/2.312780a8.chunk.js",
+  "static/js/2.312780a8.chunk.js.map": "/iobot/static/js/2.312780a8.chunk.js.map",
   "index.html": "/iobot/index.html",
-  "precache-manifest.21ded6b7239b844b9cc023f44261d7e1.js": "/iobot/precache-manifest.21ded6b7239b844b9cc023f44261d7e1.js",
+  "precache-manifest.c7c5bf066aea329ae499feb26185b40d.js": "/iobot/precache-manifest.c7c5bf066aea329ae499feb26185b40d.js",
   "service-worker.js": "/iobot/service-worker.js",
   "static/css/2.d2d906c1.chunk.css.map": "/iobot/static/css/2.d2d906c1.chunk.css.map",
-  "static/css/main.a9cabf05.chunk.css.map": "/iobot/static/css/main.a9cabf05.chunk.css.map",
+  "static/css/main.c2f15e4a.chunk.css.map": "/iobot/static/css/main.c2f15e4a.chunk.css.map",
   "static/media/main.sass": "/iobot/static/media/logo_icon.093dbdcf.svg"
 }
