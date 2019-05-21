@@ -9,12 +9,10 @@ export default class Home extends PureComponent {
     this.elements = []
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const { data, onLoad } = this.props
     
-    setTimeout(() => {
-      if(!this.viewer) this.viewer = new CloudViewer(this._canvas, () => onLoad(true), null, [data.model, data['model_small']])
-    }, 0);
+    this.viewer = new CloudViewer(this._canvas, () => onLoad(true), null, [data.model, data['model_small']])
   }
   
   render() {

@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import { OBJLoader } from 'three-obj-mtl-loader';
 import MorphCloudShader from './morphCloud';
 import DeviceOrientationControls from 'three-device-orientation'; 
-import isMobile from './useragent'
+import isMobile from 'is-mobile'
 
 
 export default class CloudViewer {
@@ -13,20 +13,17 @@ export default class CloudViewer {
     this.initialModels = initialModels;
     this.sceneElement = element;
     this.onLoad = onLoad;
-    this.activeProject = activeProject
+    this.activeProject = activeProject;
     
     this.MainScene = new THREE.Scene();
     this.camera = new THREE.PerspectiveCamera(60, this.sceneElement.offsetWidth / this.sceneElement.offsetHeight , 0.1, 1000 );
     
     this.renderer = new THREE.WebGLRenderer({ alpha: !color });
     this.camera.position.set(0, 0, cameraPositionZ);
-    // this.camera.position.multiplyScalar(0.4);
 
     if ( color ) {
       this.setColor(color);
     }
-
-
 
     this.cameraHolder = new THREE.Object3D();
     this.cameraHolder.add( this.camera );
@@ -44,9 +41,7 @@ export default class CloudViewer {
 
     this.MeshControllers = [];
 
-
     this.enabled = true;
-
 
     this.initMouse();
     this.loadModel(this.initialModels[0], onLoad);
@@ -149,7 +144,6 @@ export default class CloudViewer {
 
     for( const MainMesh of this.MeshControllers ) {
         if(MainMesh.deviceOrientControll) {
-          
           MainMesh.deviceOrientControll.update();
           MainMesh.shaderMesh.quaternion.copy(MainMesh.defaultQ.clone().slerp(MainMesh.deviceOrientControll.object.quaternion.clone(), 0.15 )) 
 
@@ -169,7 +163,7 @@ export default class CloudViewer {
 
   render() {
     requestAnimationFrame(() => this.render());
-    if( this.enabled ){ this.renderAction(); }
+    if( this.enabled ) this.renderAction(); 
   }
 
   initMouse() {
@@ -184,20 +178,5 @@ export default class CloudViewer {
         }
       });
     }
-      
-    
-    window.addEventListener("deviceorientation", (e) => {
-      if( this.enabled ){
-        // const gp = {
-        //   x: e.alpha,
-        //   y: e.beta
-        // }       
-
-        // const currentGyroNormal = new THREE.Vector2( gp.x / 180, -gp.y / 180 );
-
-        // this.mouseNormal.copy( currentGyroNormal )
-      }
-    }, false)
   }
-
 }
