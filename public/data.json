@@ -52,18 +52,6 @@
         "https://i.ibb.co/WBy2cKV/widescreen-images-hd-photos-wallpaper-desktop-images-colors-free-images-stock-1920x1080.jpg"
       ]
     },  
-    {     
-      "title": "soccer",
-      "model": "./models/soccer.obj",
-      "description": "asdsa da sd asd asd ,sdf sdjgsj ghdfj gdf jkgdf jgkhfdg ",
-      "fist-slide-color": "#000000",
-      "last-slide-color": "#0000ff",
-      "images": [
-        "https://i.ibb.co/XJk21VG/GoYcMqd.jpg",
-        "https://i.ibb.co/WBy2cKV/widescreen-images-hd-photos-wallpaper-desktop-images-colors-free-images-stock-1920x1080.jpg",
-        "https://i.ibb.co/0qFSK03/landscape-full-hwallpaper-downloalandscape-images-free-stock-images-colorful-widescreen-1920x1080-1.jpg"
-      ]
-    },
     {
       "title": "woof woof",
       "model": "./models/dog.obj",
