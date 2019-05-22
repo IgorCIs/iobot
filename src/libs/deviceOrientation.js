@@ -90,7 +90,7 @@ var DeviceOrientationControls = function( object ) {
     // alpha = orient ? 0 : alpha
     alpha = 0
     if(orient) {
-      orient = 0
+      orient = 0;
       [beta, gamma] = [gamma, beta]
     }
     // if(orient) {
