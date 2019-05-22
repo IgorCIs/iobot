@@ -41,8 +41,8 @@
   },
   "projects": [
     {
-      "title": "meow ",
-      "model": "./models/cat.obj",
+      "title": "meoww ",
+      "model": "./models/cat2.obj",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ornare dolor a felis hendrerit, id convallis est sollicitudin. Curabitur iaculis sit amet magna eget iaculis. Cras sollicitudin placerat interdum. Cras pellentesque ex sed enim mollis sagittis. Curabitur aliquet leo ligula, ut imperdiet enim facilisis quis.  ",
       "fist-slide-color": "#000000",
       "last-slide-color": "#000000",
