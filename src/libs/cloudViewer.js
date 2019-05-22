@@ -93,7 +93,6 @@ export default class CloudViewer {
           let vertices = [];
 
           const DEFAULT_RADIUS_ASPECT = 22.465094820192128;
-          
           const defaultCenter = new THREE.Vector3().fromArray(  [ 0, 0, 0 ] );
           const boundingSphere = new THREE.Box3().expandByObject( object ).getBoundingSphere( new THREE.Sphere() );
 

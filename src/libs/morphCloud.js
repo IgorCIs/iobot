@@ -224,12 +224,13 @@ export function MorphCloud( config ){
                 
                 if ( gl_Position.w > 0.0 ) {
                     gl_PointSize = 12.0 * pointSize / gl_Position.w + ( pointSize * distanceFactor * 0.5 );
+                    if( distanceFactor > 0.12 ){
+                        gl_PointSize = gl_PointSize + 4.0 * ( distanceFactor * 3.0 );
+                    }
                 } else {
                     gl_PointSize = 3.0;
                 }
                 
-            	
-            	
             }
         `,
 
@@ -428,10 +429,12 @@ export function MorphCloud( config ){
                 color1.a = transparentFactor;
                 color1.xyz *= 0.9 + 0.1 * r;
                 
+                vec4 color2 = vec4( 1.0, 0.0, 0.0, 1.0 );
+                
                 if( distanceToMouseAlpha < 0.0 ){
                     gl_FragColor = color1;
                 } else {
-                    gl_FragColor = color1;
+                    gl_FragColor = color2;
                 }
 
                 // gl_FragColor = vec4( 1.0 ); 
@@ -509,7 +512,7 @@ export default class MorphCloudShader {
         // } );
 
         this.shaderGeometry = new THREE.BufferGeometry();
-        
+
         const verticesForBuffer = [];
         for ( const nextVert of this.config.vertices ) {
             verticesForBuffer.push( nextVert.x );
