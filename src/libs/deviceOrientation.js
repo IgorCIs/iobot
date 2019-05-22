@@ -89,7 +89,10 @@ var DeviceOrientationControls = function( object ) {
     var orient = scope.screenOrientation ? THREE.Math.degToRad( scope.screenOrientation ) : 0; // O
     // alpha = orient ? 0 : alpha
     alpha = 0
-    orient = 0
+    if(orient) {
+      orient = 0
+      [beta, gamma] = [gamma, beta]
+    }
     // if(orient) {
     //   alpha = beta = gamma = orient = 0
     // }
