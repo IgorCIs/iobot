@@ -42,7 +42,7 @@ export class App extends PureComponent {
   }
 
   unMountLoader() {
-    this.setState({contentLoaded: true})
+    this.setState({ contentLoaded: true })
   }
 
   scroll(destination) {
@@ -65,7 +65,7 @@ export class App extends PureComponent {
         { data ? 
             <>
               <Logo/>
-              <Burger setProject={ this.goToProject } projectsData={data.projects}  projects={projects} onClick={this.goToSection} active={sections.currentSection}/>
+              <Burger setProject={this.goToProject} projectsData={data.projects} projects={projects} onClick={this.goToSection} active={sections.currentSection}/>
               <Pagination pages={data.projects.length + 3} onClick={i => this.goToSection(i)} active={sections.currentSection}/>
               <ReactFullpage
                 scrollOverflow={true}

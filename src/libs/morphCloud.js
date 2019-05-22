@@ -524,8 +524,6 @@ export default class MorphCloudShader {
         // this.shaderMesh2 = new THREE.Mesh( this.shaderGeometry,  this.shaderMaterial2 );
         // this.shaderMesh.add( this.shaderMesh2 );
 
-        console.log( this );
-
         this.initAnimationProperties();
 
         this.shaderMesh.onBeforeRender = ( renderer, scene, camera, geometry, material, group ) => {

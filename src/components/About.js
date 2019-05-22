@@ -21,7 +21,7 @@ const About = ({ data, active }) => {
                 ))
               }
             </div>
-            <div className='button' data-animation='fadeInRight' ref={node => elements.push(node)}>
+            <div className='button mdn' data-animation='fadeInRight' ref={node => elements.push(node)}>
               <a target='_blank' rel='noopener noreferrer' href={data.cvLink}> Download full cv (pdf) </a>
             </div>
           </div>
@@ -33,6 +33,9 @@ const About = ({ data, active }) => {
                   <div key={key}> {item} </div>
                 ))
               }
+              <div className='button mdb' data-animation='fadeInRight' ref={node => elements.push(node)}>
+                <a target='_blank' rel='noopener noreferrer' href={data.cvLink}> Download full cv (pdf) </a>
+              </div>
             </div>
           </div>
         </div>

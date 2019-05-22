@@ -11,4 +11,8 @@ $media-xxs: 320px
 @mixin media($width)
   @media(max-width: $width)
     @content
+
+@mixin media-up($width)
+  @media(min-width: $width)
+    @content
     

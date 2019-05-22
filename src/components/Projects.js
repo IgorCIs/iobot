@@ -19,9 +19,9 @@ class Project extends Component {
   componentDidUpdate() {
     const { data, slideChanges, section, isSectionActive} = this.props
     const { activeSlide } = this.state
-    const isActive = slideChanges ? section === slideChanges.origin.index : false
+    const isActiveProject = slideChanges ? section === slideChanges.origin.index : false
 
-    if(isActive && activeSlide !== slideChanges.direction.index) {
+    if(isActiveProject && activeSlide !== slideChanges.direction.index) {
       this.setState({ activeSlide: slideChanges.direction.index })
     }
 
@@ -32,18 +32,17 @@ class Project extends Component {
     }
 
     if (isSectionActive && activeSlide === 0 && this.viewer) {
-      
-      if(this.viewer) this.viewer.enabled = true
+      if (this.viewer) this.viewer.enabled = true
     } else {     
-      if(this.viewer) this.viewer.enabled = false
+      if (this.viewer) this.viewer.enabled = false
     }
   }
 
   setViewer() {
-    const { data, active, onLoad } = this.props
+    const { data, active } = this.props
 
     setTimeout(() => {
-      this.viewer = new CloudViewer(this._canvas, onLoad, data['fist-slide-color'], [data.model], active)
+      this.viewer = new CloudViewer(this._canvas, f=>f, data['fist-slide-color'], [data.model], active)
     }, 0)
   }
 
@@ -79,7 +78,7 @@ class Project extends Component {
         
         <div className='pagination-list'>
           {[...images, ')', ')'].map((_, i) => 
-            <div key={i} onClick={() => this.setSlide(i )} className={`item ${activeSlide === i ? 'active' : '' }`}>
+            <div key={i} onClick={() => this.setSlide(i)} className={`item ${activeSlide === i ? 'active' : '' }`}>
               <div/>
             </div>
           )}

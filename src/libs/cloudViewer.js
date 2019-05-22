@@ -46,25 +46,37 @@ export default class CloudViewer {
     this.initMouse();
     this.loadModel(this.initialModels[0], onLoad);
     this.initResizer();
+    this.initDeviceOrientation();
     
-    // let box = new THREE.Box3().setFromObject(myObject3D)
-    // let sphere = box.getBoundingSphere()
-    // let centerPoint = sphere.center
+    this.initialDeviceOrientationPosition = null
+  }
+  
+  initDeviceOrientation() {
+    window.addEventListener('deviceorientation', (e) => {
+      if(!this.initialDeviceOrientationPosition) {
+        this.initialDeviceOrientationPosition = e        
+      }
+
+      console.log(e)
+      // console.log("TCL: CloudViewer -> initDeviceOrientation -> this.MeshControllers[0].rotate.x", this.MeshControllers[0].shaderMesh)
+    })
   }
 
   initResizer(){
 
     window.addEventListener( 'resize', ()  => {
-      this.renderer.setSize(this.sceneElement.offsetWidth, this.sceneElement.offsetHeight );
-      this.camera.aspect = this.sceneElement.offsetWidth / this.sceneElement.offsetHeight;
-      this.camera.updateProjectionMatrix();
-
-      const currentMin = Math.min(this.sceneElement.offsetWidth, this.sceneElement.offsetHeight);
-      
-      if (currentMin < this.minimalNormalSize) {
-        this.camera.position.z = this.cameraPositionZ + this.cameraPositionZ * (1 - currentMin / this.minimalNormalSize); 
-      }
-      
+      setTimeout(() => {
+        this.renderer.setSize(this.sceneElement.offsetWidth, this.sceneElement.offsetHeight );
+        this.camera.aspect = this.sceneElement.offsetWidth / this.sceneElement.offsetHeight;
+        this.camera.updateProjectionMatrix();
+        
+        const currentMin = Math.min(this.sceneElement.offsetWidth, this.sceneElement.offsetHeight);
+         
+        if (currentMin < this.minimalNormalSize) {
+          this.camera.position.z = this.cameraPositionZ + this.cameraPositionZ * (1 - currentMin / this.minimalNormalSize); 
+        }
+        
+      }, 50)
     });
 
   }
@@ -84,7 +96,6 @@ export default class CloudViewer {
           
           const defaultCenter = new THREE.Vector3().fromArray(  [ 0, 0, 0 ] );
           const boundingSphere = new THREE.Box3().expandByObject( object ).getBoundingSphere( new THREE.Sphere() );
-
 
           const targetRadiusAspect = DEFAULT_RADIUS_ASPECT / boundingSphere.radius;
           const targetCenterOffset = defaultCenter.sub( boundingSphere.center );
@@ -124,8 +135,8 @@ export default class CloudViewer {
 
     this.MainScene.add( ShadedMeshController.shaderMesh );
 
-    if(isMobile()) ShadedMeshController.deviceOrientControll = new DeviceOrientationControls(new THREE.Object3D());
-    ShadedMeshController.defaultQ = ShadedMeshController.shaderMesh.quaternion.clone();
+    // if(isMobile()) ShadedMeshController.deviceOrientControll = new DeviceOrientationControls(new THREE.Object3D());
+    // ShadedMeshController.defaultQ = ShadedMeshController.shaderMesh.quaternion.clone();
     
     this.MeshControllers.push( ShadedMeshController );
 
@@ -146,8 +157,8 @@ export default class CloudViewer {
 
     for( const MainMesh of this.MeshControllers ) {
         if(MainMesh.deviceOrientControll) {
-          MainMesh.deviceOrientControll.update();
-          MainMesh.shaderMesh.quaternion.copy(MainMesh.defaultQ.clone().slerp(MainMesh.deviceOrientControll.object.quaternion.clone(), 0.15 )) 
+          // MainMesh.deviceOrientControll.update();
+          // MainMesh.shaderMesh.quaternion.copy(MainMesh.defaultQ.clone().slerp(MainMesh.deviceOrientControll.object.quaternion.clone(), 0.15 )) 
 
         }
         
@@ -159,8 +170,6 @@ export default class CloudViewer {
         this.cameraHolder.rotation.x = -0.2 + toSinFunc( MainMesh.mouseOldestPosition.y, 0 ) * translateFactor * 0.05;
         this.cameraHolder.rotation.y = -toSinFunc( MainMesh.mouseOldestPosition.x, 0 ) * translateFactor * 0.1;
     }
-    // this.controls.update()
-
   }
 
   render() {

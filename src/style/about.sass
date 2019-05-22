@@ -1,9 +1,9 @@
 .about
   background-color: #dfdfdf
-  background-image: url('../media/about-bg.png')
+  background-image: url('./../media/About_me_background.jpg')
   color: #000
-  background-position: 0 40%
-  background-size: 55%
+  background-position: 0 0
+  background-size: auto 100%
   background-repeat: no-repeat
   
   &>div
@@ -74,6 +74,8 @@
       width: 100%
       .description
         justify-content: center
+        text-align: right
+        padding-left: 30px
 
   +media($media-sm)
     background-image: unset
@@ -102,3 +104,11 @@
 
 .iScrollIndicator
   opacity: 0
+
+.mdb
+  +media-up($media-xs)
+    display: none
+
+.mdn
+  +media($media-xs)
+    display: none
