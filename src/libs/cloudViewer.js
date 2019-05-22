@@ -2,7 +2,7 @@ import * as THREE from 'three';
 // import OrbitControlls from 'three-orbitcontrols';
 import { OBJLoader } from 'three-obj-mtl-loader';
 import MorphCloudShader from './morphCloud';
-import DeviceOrientationControls from 'three-device-orientation'; 
+import DeviceOrientationControls from './deviceOrientation.js'
 import isMobile from 'is-mobile'
 
 
