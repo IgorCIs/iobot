@@ -4,7 +4,7 @@ self.__precacheManifest = [
     "url": "/iobot/static/media/Replica-Light.a7ba6bdf.woff"
   },
   {
-    "revision": "0eed67b37d0087b36470",
+    "revision": "d6a005a287914161a029",
     "url": "/iobot/static/css/main.ff4c69c6.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = [
     "url": "/iobot/static/media/About_me_background.745ddd65.jpg"
   },
   {
-    "revision": "101f0999a436d0af7390",
-    "url": "/iobot/static/js/2.312780a8.chunk.js"
+    "revision": "cf2d9bdf67b7ebf52cd4",
+    "url": "/iobot/static/js/2.5fa49666.chunk.js"
   },
   {
     "revision": "093dbdcfde8eef8571b850f937b37d2f",
@@ -48,16 +48,12 @@ self.__precacheManifest = [
     "url": "/iobot/static/media/Replica-Bold.66454f02.woff"
   },
   {
-    "revision": "0eed67b37d0087b36470",
-    "url": "/iobot/static/js/main.1d7d97cc.chunk.js"
+    "revision": "d6a005a287914161a029",
+    "url": "/iobot/static/js/main.2de9e615.chunk.js"
   },
   {
     "revision": "9fc2fc88ca4723e762759a9bc55979dc",
     "url": "/iobot/static/media/Replica-Regular.9fc2fc88.eot"
-  },
-  {
-    "revision": "d89dfa89d393bbef16dc423213d0febf",
-    "url": "/iobot/static/media/Replica-Regular.d89dfa89.ttf"
   },
   {
     "revision": "d1e12f91126e8c8ad7878c4b06c2c787",
@@ -66,6 +62,10 @@ self.__precacheManifest = [
   {
     "revision": "6fb495bfaa6c587313e7f9f536745cf9",
     "url": "/iobot/static/media/Replica-Bold.6fb495bf.ttf"
+  },
+  {
+    "revision": "d89dfa89d393bbef16dc423213d0febf",
+    "url": "/iobot/static/media/Replica-Regular.d89dfa89.ttf"
   },
   {
     "revision": "666dce16fb4a2e6e3490ce3921d0faf5",
@@ -88,11 +88,11 @@ self.__precacheManifest = [
     "url": "/iobot/static/media/Replica-Light.0e992717.svg"
   },
   {
-    "revision": "101f0999a436d0af7390",
+    "revision": "cf2d9bdf67b7ebf52cd4",
     "url": "/iobot/static/css/2.d2d906c1.chunk.css"
   },
   {
-    "revision": "8bfe1816018166647e07a459340879db",
+    "revision": "4fa2302acc772c21934c0e4217f43d52",
     "url": "/iobot/index.html"
   }
 ];
