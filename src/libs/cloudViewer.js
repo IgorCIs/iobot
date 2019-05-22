@@ -57,7 +57,6 @@ export default class CloudViewer {
         this.initialDeviceOrientationPosition = e        
       }
 
-      console.log(e)
       // console.log("TCL: CloudViewer -> initDeviceOrientation -> this.MeshControllers[0].rotate.x", this.MeshControllers[0].shaderMesh)
     })
   }
@@ -134,8 +133,8 @@ export default class CloudViewer {
 
     this.MainScene.add( ShadedMeshController.shaderMesh );
 
-    // if(isMobile()) ShadedMeshController.deviceOrientControll = new DeviceOrientationControls(new THREE.Object3D());
-    // ShadedMeshController.defaultQ = ShadedMeshController.shaderMesh.quaternion.clone();
+    if(isMobile()) ShadedMeshController.deviceOrientControll = new DeviceOrientationControls(new THREE.Object3D());
+    ShadedMeshController.defaultQ = ShadedMeshController.shaderMesh.quaternion.clone();
     
     this.MeshControllers.push( ShadedMeshController );
 
@@ -156,8 +155,8 @@ export default class CloudViewer {
 
     for( const MainMesh of this.MeshControllers ) {
         if(MainMesh.deviceOrientControll) {
-          // MainMesh.deviceOrientControll.update();
-          // MainMesh.shaderMesh.quaternion.copy(MainMesh.defaultQ.clone().slerp(MainMesh.deviceOrientControll.object.quaternion.clone(), 0.15 )) 
+          MainMesh.deviceOrientControll.update();
+          MainMesh.shaderMesh.quaternion.copy(MainMesh.defaultQ.clone().slerp(MainMesh.deviceOrientControll.object.quaternion.clone(), 0.15 )) 
 
         }
         

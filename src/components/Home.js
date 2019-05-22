@@ -3,21 +3,19 @@ import { animate } from './../libs/animateNode'
 import CloudViewer from '../libs/cloudViewer';
 
 export default class Home extends PureComponent {
-  constructor(props) {
-    super(props)
-
-    this.elements = []
-  }
+  
+  elements = []
 
   componentDidMount() {
     const { data, onLoad } = this.props
     
-    this.viewer = new CloudViewer(this._canvas, () => onLoad(true), null, [data.model, data['model_small']])
+    this.viewer = new CloudViewer(this._canvas, () => onLoad(true), null, [data.model])
   }
   
   render() {
     const { data, active, setSection } = this.props
     animate(active, this.elements)
+
     if (this.viewer) {
       if (!active) {
         this.viewer.enabled = false

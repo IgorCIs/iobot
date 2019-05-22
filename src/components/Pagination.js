@@ -4,7 +4,6 @@ export class Pagination extends PureComponent {
   render() {
     const { pages } = this.props
     return (
-
       <div className='pagination'>
         {
           [...Array(pages)].map((_, i) =>  (

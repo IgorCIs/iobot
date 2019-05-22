@@ -26,7 +26,7 @@ class Project extends Component {
     }
 
     const isImage = data.images[activeSlide - 1]
-
+    
     if(!isImage & this.state.openedImage) {
       this.setState({ openedImage: false })
     }

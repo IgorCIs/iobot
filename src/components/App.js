@@ -70,16 +70,16 @@ export class App extends PureComponent {
               <ReactFullpage
                 scrollOverflow={true}
                 scrollHorizontally={true}
-                onLeave={(origin, destination, direction) => {
+                onLeave={(origin, destination) => {
                   this.scroll(destination)
-                  this.setState({blockSlider: false})
+                  this.setState({ blockSlider: false })
                 }}  
                 onSlideLeave={(origin, destination, direction) => {
-                  this.slideChanges = {origin, destination, direction}
-
-                  if(destination.isLast && direction.isFirst) {
+                  if((destination.isLast && direction.isFirst) || (destination.isFirst && direction.isLast)) {
                     return false 
-                  }
+                  } 
+
+                  this.slideChanges = {origin, destination, direction}
                 }}  
                 render={
                   ({ fullpageApi }) => {

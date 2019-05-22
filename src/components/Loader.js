@@ -3,7 +3,7 @@ import { animate } from '../libs/animateNode';
 
 let _loader
 
-const Loader = ({loaded, unMount}) => {
+const Loader = ({ loaded, unMount }) => {
   if(loaded) animate(loaded, [_loader], () => {
     unMount()
   })
