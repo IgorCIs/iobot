@@ -23,6 +23,8 @@ export class App extends PureComponent {
     this.fullpageApi = null
   }
 
+  activeSlide = 0
+  
   state = {
     contentLoaded: false,
     homeLoaded: false,
@@ -75,18 +77,22 @@ export class App extends PureComponent {
                   this.setState({ blockSlider: false })
                 }}  
                 onSlideLeave={(origin, destination, direction) => {
-                  if((destination.isLast && direction.isFirst) || (destination.isFirst && direction.isLast)) {
+                  if (destination.isFirst && direction.isLast) {
                     return false 
-                  } 
+                  } else if (destination.isLast && direction.isFirst) {
+                    // this.fullpageApi.moveTo(this.fullpageApi.getActiveSection().index + 1)
+                    return false
+                  }
 
                   this.slideChanges = {origin, destination, direction}
                 }}  
                 render={
                   ({ fullpageApi }) => {
                     if(fullpageApi) this.fullpageApi = fullpageApi
+                    window.fullpageApi = fullpageApi
                     return (
                       <div>
-                        <Home data={data.home} setSection={goToSection} onLoad={this.toggleLoader} active={sections.currentSection === 1}/>
+                        <Home data={data.home} aboutSectionId={data.projects.length + 2} setSection={goToSection} onLoad={this.toggleLoader} active={sections.currentSection === 1}/>
                         <Projects data={data.projects} fullpageApi={fullpageApi} slideChanges={this.slideChanges} onLoad={this.toggleLoader} isSectionActive={sections.currentSection === 2} active={sections.currentSection } setProject={setProject} />
                         <About data={data.about} active={sections.currentSection === 3}/>
                         <Thanks data={data.last} onClick={(i) => goToSection(i)} active={sections.currentSection === 4}/>

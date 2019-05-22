@@ -13,7 +13,7 @@ export default class Home extends PureComponent {
   }
   
   render() {
-    const { data, active, setSection } = this.props
+    const { data, active, setSection, aboutSectionId} = this.props
     animate(active, this.elements)
 
     if (this.viewer) {
@@ -25,11 +25,11 @@ export default class Home extends PureComponent {
     }
 
     return (
-      <div className='home fp-noscroll section'>
+      <div className='home fp-noscroll section' id='home'>
         <div style={{ backgroundColor: data.color }} ref={node => this._canvas = node} id='homescene' className='scene'> </div>
         <div ref={node => this.elements.push(node)} data-animation='fadeInRight' className='title'>
           <div>
-            My name is <span onClick={() =>  setSection(3)}>Kuba</span>, <br/>I do cool sh*t & <br/> this is my <span onClick={() => setSection(2)}> book </span>
+            My name is <span onClick={() => setSection(aboutSectionId)}>Kuba</span>, <br/>I do cool sh*t & <br/> this is my <span onClick={() => setSection(2)}> book </span>
           </div>
         </div>
         <div className='contacts'>

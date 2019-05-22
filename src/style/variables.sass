@@ -9,6 +9,13 @@ $media-xs: 574.8px
 $media-xxs: 320px
 
 @mixin media($width)
+  @media(max-width: $width)  
+    @content
+
+  @media(max-height: $width)  
+    @content
+
+@mixin media-not-land($width)
   @media(max-width: $width)
     @content
 
