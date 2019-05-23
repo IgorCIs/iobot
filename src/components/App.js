@@ -24,10 +24,15 @@ export class App extends PureComponent {
   }
 
   activeSlide = 0
+  blockInfinityScroll = false
   
   state = {
     contentLoaded: false,
     homeLoaded: false,
+  }
+
+  blockInfinity = (status = true) => {
+    this.blockInfinityScroll = status
   }
   
   componentDidMount() {
@@ -55,6 +60,7 @@ export class App extends PureComponent {
     this.setState({ homeLoaded: open })
   }  
 
+
   render() {
     const { sections, setProject, data, projects } = this.props
     const { goToSection } = this
@@ -77,12 +83,12 @@ export class App extends PureComponent {
                   this.setState({ blockSlider: false })
                 }}  
                 onSlideLeave={(origin, destination, direction) => {
-                  if (destination.isFirst && direction.isLast) {
+                  if (destination.isFirst && direction.isLast && !this.blockInfinityScroll) {
                     return false 
-                  } else if (destination.isLast && direction.isFirst) {
-                    // this.fullpageApi.moveTo(this.fullpageApi.getActiveSection().index + 1)
+                  } else if (destination.isLast && direction.isFirst && !this.blockInfinityScroll) {
                     return false
                   }
+                  
 
                   this.slideChanges = {origin, destination, direction}
                 }}  
@@ -92,7 +98,7 @@ export class App extends PureComponent {
                     return (
                       <div>
                         <Home data={data.home} aboutSectionId={data.projects.length + 2} setSection={goToSection} onLoad={this.toggleLoader} active={sections.currentSection === 1}/>
-                        <Projects data={data.projects} fullpageApi={fullpageApi} slideChanges={this.slideChanges} onLoad={this.toggleLoader} isSectionActive={sections.currentSection === 2} active={sections.currentSection } setProject={setProject} />
+                        <Projects data={data.projects} blockInfinity={this.blockInfinity} fullpageApi={fullpageApi} slideChanges={this.slideChanges} onLoad={this.toggleLoader} isSectionActive={sections.currentSection === 2} active={sections.currentSection } setProject={setProject} />
                         <About data={data.about} active={sections.currentSection === data.projects.length + 2}/>
                         <Thanks data={data.last} onClick={(i) => goToSection(i)} active={sections.currentSection === data.projects.length + 3}/>
                       </div>

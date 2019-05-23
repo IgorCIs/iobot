@@ -12,29 +12,35 @@ class Project extends Component {
   }
 
   setSlide(activeSlide) {
-    this.props.fullpageApi.moveTo(this.props.section + 1, activeSlide)
+    const { blockInfinity, fullpageApi } = this.props;
+    
+    blockInfinity()
+    fullpageApi.moveTo(this.props.section + 1, activeSlide)
     this.setState({ activeSlide })
+    blockInfinity(false)
   }
 
   componentDidUpdate() {
-    const { data, slideChanges, section, isSectionActive} = this.props
+    const { data, slideChanges, section, isSectionActive, blockInfinity } = this.props
     const { activeSlide } = this.state
     const isProjectChanged = slideChanges ? section === slideChanges.origin.index : false
 
+    //if project slide changed - change local state
     if(isProjectChanged && activeSlide !== slideChanges.direction.index) {
       this.setState({ activeSlide: slideChanges.direction.index })
     }
-
+    
+    //scroll slide to title if user changed project
     if(!isSectionActive && activeSlide !== 0) {
       this.setSlide(0)
     }
     
-    const isImage = data.images[activeSlide - 1]
-    
-    if(!isImage & this.state.openedImage) {
+    //close popup if user change slide in imageviewer
+    if(!data.images[activeSlide - 1] & this.state.openedImage) {
       this.setState({ openedImage: false })
     }
 
+    //disabling viewver if hes not on the screen for perfomance 
     if (isSectionActive && activeSlide === 0 && this.viewer) {
       if (this.viewer) this.viewer.enabled = true
     } else {     
@@ -109,10 +115,10 @@ class Project extends Component {
   }
 }
 
-const Projects = ({ data, onLoad, fullpageApi, slideChanges, active }) => (
+const Projects = ({ data, onLoad, fullpageApi, slideChanges, active, blockInfinity}) => (
   <>
     {data.map((project, i) => (
-      <Project onLoad={onLoad} data={project} slideChanges={slideChanges} isSectionActive={active === i + 2} fullpageApi={fullpageApi} key={i} section={i + 1}/>
+      <Project onLoad={onLoad} data={project} slideChanges={slideChanges} blockInfinity={blockInfinity} isSectionActive={active === i + 2} fullpageApi={fullpageApi} key={i} section={i + 1}/>
     ))}
   </>
 )
