@@ -1,5 +1,5 @@
 {
-  "main.css": "/iobot/static/css/main.293adb83.chunk.css",
+  "main.css": "/iobot/static/css/main.9ee34783.chunk.css",
   "main.js": "/iobot/static/js/main.a4bf3a80.chunk.js",
   "main.js.map": "/iobot/static/js/main.a4bf3a80.chunk.js.map",
   "runtime~main.js": "/iobot/static/js/runtime~main.8245f0cd.js",
@@ -8,9 +8,9 @@
   "static/js/2.5fa49666.chunk.js": "/iobot/static/js/2.5fa49666.chunk.js",
   "static/js/2.5fa49666.chunk.js.map": "/iobot/static/js/2.5fa49666.chunk.js.map",
   "index.html": "/iobot/index.html",
-  "precache-manifest.c3f87a1c1bf43d57c591f7a6c2d3fb75.js": "/iobot/precache-manifest.c3f87a1c1bf43d57c591f7a6c2d3fb75.js",
+  "precache-manifest.97920228e50bbfa15af0b08ab31736c7.js": "/iobot/precache-manifest.97920228e50bbfa15af0b08ab31736c7.js",
   "service-worker.js": "/iobot/service-worker.js",
   "static/css/2.d2d906c1.chunk.css.map": "/iobot/static/css/2.d2d906c1.chunk.css.map",
-  "static/css/main.293adb83.chunk.css.map": "/iobot/static/css/main.293adb83.chunk.css.map",
+  "static/css/main.9ee34783.chunk.css.map": "/iobot/static/css/main.9ee34783.chunk.css.map",
   "static/media/main.sass": "/iobot/static/media/logo_icon.093dbdcf.svg"
 }

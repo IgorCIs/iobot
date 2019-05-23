@@ -4,8 +4,8 @@ self.__precacheManifest = [
     "url": "/iobot/static/media/Replica-Light.a7ba6bdf.woff"
   },
   {
-    "revision": "c7e59adeef4e056c5e97",
-    "url": "/iobot/static/css/main.293adb83.chunk.css"
+    "revision": "e2aed449107df396227c",
+    "url": "/iobot/static/css/main.9ee34783.chunk.css"
   },
   {
     "revision": "b65004a626ec5605b082",
@@ -48,7 +48,7 @@ self.__precacheManifest = [
     "url": "/iobot/static/media/Replica-Bold.66454f02.woff"
   },
   {
-    "revision": "c7e59adeef4e056c5e97",
+    "revision": "e2aed449107df396227c",
     "url": "/iobot/static/js/main.a4bf3a80.chunk.js"
   },
   {
@@ -76,12 +76,12 @@ self.__precacheManifest = [
     "url": "/iobot/static/media/Replica-Light.04eaa32d.ttf"
   },
   {
-    "revision": "d455fb6cd351b05bd6fa052f03280f0d",
-    "url": "/iobot/static/media/Replica-Regular.d455fb6c.svg"
-  },
-  {
     "revision": "f7d25454976c96c80b1b8bb072c1b023",
     "url": "/iobot/static/media/Replica-Bold.f7d25454.svg"
+  },
+  {
+    "revision": "d455fb6cd351b05bd6fa052f03280f0d",
+    "url": "/iobot/static/media/Replica-Regular.d455fb6c.svg"
   },
   {
     "revision": "0e992717c85998f6ba6604bb11393eb2",
@@ -92,7 +92,7 @@ self.__precacheManifest = [
     "url": "/iobot/static/css/2.d2d906c1.chunk.css"
   },
   {
-    "revision": "2fdc41c9d8876e7d5f7b92af46520b79",
+    "revision": "c36470ca324e6b680bcbfd7c416294f9",
     "url": "/iobot/index.html"
   }
 ];
