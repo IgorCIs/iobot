@@ -52,7 +52,7 @@ class Project extends Component {
     const { data, active } = this.props
 
     setTimeout(() => {
-      this.viewer = new CloudViewer(this._canvas, f=>f, data['fist-slide-color'], [data.model], active)
+      this.viewer = new CloudViewer(this._canvas, f=>f, null, [data.model], active)
     }, 0)
   }
 
@@ -64,7 +64,7 @@ class Project extends Component {
     return (
       <div className={`section fp-noscroll projects`} ref={node => this._element = node} data-slides={`${activeSlide === 0 ? 'first' : ''}${activeSlide === images.length + 1 ? 'last' : ''}`} >
         <div className='slide fp-noscroll'>
-          <div className='first-slide'>
+          <div className='first-slide' style={{background: data['fist-slide-color']}}>
             <div className='main-title'> {data.title} </div>
             <div ref={node => this._canvas = node} className='project-scene'> </div>
           </div>
@@ -77,7 +77,7 @@ class Project extends Component {
           </div>)
         }
 
-        <div className='slide descr-wrapper fp-noscroll' style={{background: data['last-slide-color']}}>
+        <div className='slide descr-wrapper fp-noscroll' style={{ background: data['last-slide-color'] }}>
           <div className='descr-slide' >
             <div className='title' data-animation='projectsTitle'> {title} </div>
             <div className='descr'>

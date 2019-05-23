@@ -22,7 +22,6 @@ class Burger extends PureComponent {
     this.props.setProject(project)
     this.props.onClick(project + 2)
 
-  
     setTimeout(() => {
       this.props.onClick(project + 2)
       this.props.setProject(project)
