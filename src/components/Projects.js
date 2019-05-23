@@ -15,8 +15,8 @@ class Project extends Component {
     const { blockInfinity, fullpageApi } = this.props;
     
     blockInfinity()
-    fullpageApi.moveTo(this.props.section + 1, activeSlide)
     this.setState({ activeSlide })
+    fullpageApi.moveTo(this.props.section + 1, activeSlide)
     blockInfinity(false)
   }
 

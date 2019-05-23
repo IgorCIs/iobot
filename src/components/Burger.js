@@ -7,20 +7,26 @@ class Burger extends PureComponent {
   }
 
   toggle = () => {
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       closed: !prevState.closed
     }))
   }
 
-  scrollTo = index => {
+  scrollTo = (index) => {
     this.toggle()
     this.props.onClick(index)
   }
 
   scrollToProject = (project) => {
     this.toggle()
-    this.props.onClick(project + 2)
     this.props.setProject(project)
+    this.props.onClick(project + 2)
+
+  
+    setTimeout(() => {
+      this.props.onClick(project + 2)
+      this.props.setProject(project)
+    }, 0)
   }
   
   render() {
