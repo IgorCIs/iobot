@@ -1,14 +1,10 @@
 import React, { Component } from 'react'
-// import CloudViewer from './../libs/cloudViewer.js'
+import CloudViewer from './../libs/cloudViewer.js'
 
 class Project extends Component {
   state = {
     openedImage: null,
     activeSlide: 0,
-  }
-
-  componentDidMount() {
-    this.setViewer()
   }
 
   setSlide(activeSlide) {
@@ -21,7 +17,7 @@ class Project extends Component {
   }
 
   componentDidUpdate() {
-    const { data, slideChanges, section, isSectionActive } = this.props
+    const { data, slideChanges, section, isSectionActive, homeLoaded } = this.props
     const { activeSlide } = this.state
     const isProjectChanged = slideChanges ? section === slideChanges.origin.index : false
 
@@ -33,6 +29,10 @@ class Project extends Component {
     //scroll slide to title if user changed project
     if(!isSectionActive && activeSlide !== 0) {
       this.setSlide(0)
+    }
+
+    if(homeLoaded && !this.viewer) {
+      this.setViewer()
     }
     
     //close popup if user change slide in imageviewer
@@ -49,10 +49,10 @@ class Project extends Component {
   }
 
   setViewer() {
-    // const { data, active } = this.props
-
+    const { data, active } = this.props
+    
     setTimeout(() => {
-      // this.viewer = new CloudViewer(this._canvas, f=>f, null, [data.model], active)
+      this.viewer = new CloudViewer(this._canvas, f=>f, null, [data.model], active)
     }, 0)
   }
 
@@ -115,10 +115,10 @@ class Project extends Component {
   }
 }
 
-const Projects = ({ data,  fullpageApi, slideChanges, active, blockInfinity}) => (
+const Projects = ({ data,  fullpageApi, slideChanges, active, blockInfinity, homeLoaded }) => (
   <>
     {data.map((project, i) => (
-      <Project  data={project} slideChanges={slideChanges} blockInfinity={blockInfinity} isSectionActive={active === i + 2} fullpageApi={fullpageApi} key={i} section={i + 1}/>
+      <Project  data={project} homeLoaded={homeLoaded} slideChanges={slideChanges} blockInfinity={blockInfinity} isSectionActive={active === i + 2} fullpageApi={fullpageApi} key={i} section={i + 1}/>
     ))}
   </>
 )

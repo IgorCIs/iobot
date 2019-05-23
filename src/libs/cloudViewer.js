@@ -138,7 +138,7 @@ export default class CloudViewer {
     
     this.MeshControllers.push( ShadedMeshController );
 
-    setTimeout(() => onLoad(true), 1000);
+    setTimeout(() => onLoad(true), 300);
   }
 
   clearAllMeshControllers(){
