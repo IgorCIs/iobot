@@ -4,7 +4,7 @@ self.__precacheManifest = [
     "url": "/iobot/static/media/Replica-Light.a7ba6bdf.woff"
   },
   {
-    "revision": "f2e6622b5ba3f7370b4c",
+    "revision": "f1596508f1752523faed",
     "url": "/iobot/static/css/main.d94a6296.chunk.css"
   },
   {
@@ -48,8 +48,8 @@ self.__precacheManifest = [
     "url": "/iobot/static/media/Replica-Bold.66454f02.woff"
   },
   {
-    "revision": "f2e6622b5ba3f7370b4c",
-    "url": "/iobot/static/js/main.e0cb2711.chunk.js"
+    "revision": "f1596508f1752523faed",
+    "url": "/iobot/static/js/main.f4b8a97a.chunk.js"
   },
   {
     "revision": "9fc2fc88ca4723e762759a9bc55979dc",
@@ -92,7 +92,7 @@ self.__precacheManifest = [
     "url": "/iobot/static/css/2.d2d906c1.chunk.css"
   },
   {
-    "revision": "3d31be89c90044b7c2334b15c1ea8974",
+    "revision": "e8f64251c6a617601183337467e31ee9",
     "url": "/iobot/index.html"
   }
 ];
