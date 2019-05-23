@@ -21,7 +21,7 @@ class Project extends Component {
   }
 
   componentDidUpdate() {
-    const { data, slideChanges, section, isSectionActive, blockInfinity } = this.props
+    const { data, slideChanges, section, isSectionActive } = this.props
     const { activeSlide } = this.state
     const isProjectChanged = slideChanges ? section === slideChanges.origin.index : false
 
