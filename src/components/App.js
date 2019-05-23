@@ -98,7 +98,7 @@ export class App extends PureComponent {
                     return (
                       <div>
                         <Home data={data.home} aboutSectionId={data.projects.length + 2} setSection={goToSection} onLoad={this.toggleLoader} active={sections.currentSection === 1}/>
-                        <Projects data={data.projects} blockInfinity={this.blockInfinity} fullpageApi={fullpageApi} slideChanges={this.slideChanges} onLoad={this.toggleLoader} isSectionActive={sections.currentSection === 2} active={sections.currentSection } setProject={setProject} />
+                        <Projects data={data.projects} blockInfinity={this.blockInfinity} fullpageApi={fullpageApi} slideChanges={this.slideChanges} isSectionActive={sections.currentSection === 2} active={sections.currentSection } setProject={setProject} />
                         <About data={data.about} active={sections.currentSection === data.projects.length + 2}/>
                         <Thanks data={data.last} onClick={(i) => goToSection(i)} active={sections.currentSection === data.projects.length + 3}/>
                       </div>

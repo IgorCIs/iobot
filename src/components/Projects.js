@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import CloudViewer from './../libs/cloudViewer.js'
+// import CloudViewer from './../libs/cloudViewer.js'
 
 class Project extends Component {
   state = {
@@ -49,10 +49,10 @@ class Project extends Component {
   }
 
   setViewer() {
-    const { data, active } = this.props
+    // const { data, active } = this.props
 
     setTimeout(() => {
-      this.viewer = new CloudViewer(this._canvas, f=>f, null, [data.model], active)
+      // this.viewer = new CloudViewer(this._canvas, f=>f, null, [data.model], active)
     }, 0)
   }
 
@@ -115,10 +115,10 @@ class Project extends Component {
   }
 }
 
-const Projects = ({ data, onLoad, fullpageApi, slideChanges, active, blockInfinity}) => (
+const Projects = ({ data,  fullpageApi, slideChanges, active, blockInfinity}) => (
   <>
     {data.map((project, i) => (
-      <Project onLoad={onLoad} data={project} slideChanges={slideChanges} blockInfinity={blockInfinity} isSectionActive={active === i + 2} fullpageApi={fullpageApi} key={i} section={i + 1}/>
+      <Project  data={project} slideChanges={slideChanges} blockInfinity={blockInfinity} isSectionActive={active === i + 2} fullpageApi={fullpageApi} key={i} section={i + 1}/>
     ))}
   </>
 )
