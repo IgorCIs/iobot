@@ -38,7 +38,7 @@ export default class Home extends PureComponent {
               <a className='fadeInUp' data-animation='fadeInUp' ref={node => this.elements.push(node)} href={`mailto:${data.links.email}`}> {data.links.email} </a>
             </div>
             <div className='phone'>
-              <a className='fadeInUp' data-animation='fadeInUp' ref={node => this.elements.push(node)}  href={`tel${data.links.mobile}`}> {data.links.mobile} </a>
+              <a className='fadeInUp' data-animation='fadeInUp' ref={node => this.elements.push(node)}  href={`tel:${data.links.mobile}`}> {data.links.mobile} </a>
             </div>
           </div>
 

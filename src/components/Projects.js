@@ -19,12 +19,16 @@ class Project extends Component {
   componentDidUpdate() {
     const { data, slideChanges, section, isSectionActive} = this.props
     const { activeSlide } = this.state
-    const isActiveProject = slideChanges ? section === slideChanges.origin.index : false
+    const isProjectChanged = slideChanges ? section === slideChanges.origin.index : false
 
-    if(isActiveProject && activeSlide !== slideChanges.direction.index) {
+    if(isProjectChanged && activeSlide !== slideChanges.direction.index) {
       this.setState({ activeSlide: slideChanges.direction.index })
     }
 
+    if(!isSectionActive && activeSlide !== 0) {
+      this.setSlide(0)
+    }
+    
     const isImage = data.images[activeSlide - 1]
     
     if(!isImage & this.state.openedImage) {

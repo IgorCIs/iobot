@@ -89,13 +89,12 @@ export class App extends PureComponent {
                 render={
                   ({ fullpageApi }) => {
                     if(fullpageApi) this.fullpageApi = fullpageApi
-                    window.fullpageApi = fullpageApi
                     return (
                       <div>
                         <Home data={data.home} aboutSectionId={data.projects.length + 2} setSection={goToSection} onLoad={this.toggleLoader} active={sections.currentSection === 1}/>
                         <Projects data={data.projects} fullpageApi={fullpageApi} slideChanges={this.slideChanges} onLoad={this.toggleLoader} isSectionActive={sections.currentSection === 2} active={sections.currentSection } setProject={setProject} />
-                        <About data={data.about} active={sections.currentSection === 3}/>
-                        <Thanks data={data.last} onClick={(i) => goToSection(i)} active={sections.currentSection === 4}/>
+                        <About data={data.about} active={sections.currentSection === data.projects.length + 2}/>
+                        <Thanks data={data.last} onClick={(i) => goToSection(i)} active={sections.currentSection === data.projects.length + 3}/>
                       </div>
                     )
                   }
