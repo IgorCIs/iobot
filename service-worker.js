@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/iobot/precache-manifest.dcbe0e02dbb96acb508b3c4123e9da81.js"
+  "/project/iobotic/precache-manifest.1ee81a1073733ba3415c1ecfeb6cb510.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("/iobot/index.html", {
+workbox.routing.registerNavigationRoute("/project/iobotic/index.html", {
   
   blacklist: [/^\/_/,/\/[^\/]+\.[^\/]+$/],
 });
