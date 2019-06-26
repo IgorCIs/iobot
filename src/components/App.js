@@ -5,12 +5,11 @@ import 'fullpage.js/dist/fullpage.extensions.min.js'
 
 import Home from './Home';
 import Logo from './Logo';
-import Burger from './Burger';
+import Burger from './Navbar';
 import Thanks from './Thanks';
 import About from './About';
 import Pagination from './Pagination';
 import Projects from './Projects';
-import Loader from './Loader';
 
 export class App extends PureComponent {
   constructor(props) {
@@ -29,13 +28,8 @@ export class App extends PureComponent {
   state = {
     contentLoaded: false,
     homeLoaded: false,
-    mainLoaded: false
   }
 
-  blockInfinity = (status = true) => {
-    this.blockInfinityScroll = status
-  }
-  
   componentDidMount() {
     this.props.fetchData()
   }
@@ -65,12 +59,10 @@ export class App extends PureComponent {
   render() {
     const { sections, setProject, data, projects } = this.props
     const { goToSection } = this
-    const { contentLoaded, homeLoaded } = this.state
     if(data && (data.title !== document.title)) document.title = data.title
 
     return ( 
       <>
-        { homeLoaded && contentLoaded ? '' : <Loader loaded={(!!data && homeLoaded)} unMount={this.unMountLoader}/> }
         { data ? 
             <>
               <Logo/>
@@ -79,18 +71,12 @@ export class App extends PureComponent {
               <ReactFullpage
                 scrollOverflow={true}
                 scrollHorizontally={true}
+                loopHorizontal={false}
                 onLeave={(origin, destination) => {
                   this.scroll(destination)
                   this.setState({ blockSlider: false })
                 }}  
                 onSlideLeave={(origin, destination, direction) => {
-                  if (destination.isFirst && direction.isLast && !this.blockInfinityScroll) {
-                    return false 
-                  } else if (destination.isLast && direction.isFirst && !this.blockInfinityScroll) {
-                    return false
-                  }
-                  
-
                   this.slideChanges = {origin, destination, direction}
                 }}  
                 render={
@@ -99,7 +85,7 @@ export class App extends PureComponent {
                     return (
                       <div>
                         <Home data={data.home} aboutSectionId={data.projects.length + 2} setSection={goToSection} onLoad={this.toggleLoader} active={sections.currentSection === 1}/>
-                        <Projects data={data.projects} homeLoaded={this.state.homeLoaded} blockInfinity={this.blockInfinity} fullpageApi={fullpageApi} slideChanges={this.slideChanges} isSectionActive={sections.currentSection === 2} active={sections.currentSection } setProject={setProject} />
+                        <Projects data={data.projects} homeLoaded={this.state.homeLoaded} fullpageApi={fullpageApi} slideChanges={this.slideChanges} isSectionActive={sections.currentSection === 2} active={sections.currentSection } setProject={setProject} />
                         <About data={data.about} active={sections.currentSection === data.projects.length + 2}/>
                         <Thanks data={data.last} onClick={(i) => goToSection(i)} active={sections.currentSection === data.projects.length + 3}/>
                       </div>

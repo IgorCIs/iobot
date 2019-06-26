@@ -69,9 +69,11 @@
           padding: 18px 25px
           background: $red
 
-  +media-not-land($media-md)
+  +media-not-land($media-ipad)
     .wrapper
       width: 100%
+      .subtitle, .title
+        padding-left: 40px
       .description
         justify-content: center
         text-align: left
@@ -86,7 +88,7 @@
   +media($media-xs)
     .wrapper
       justify-content: flex-end
-      padding: 50px 0 50px 30px
+      padding: 50px 0 50px 50px
 
     .title
       max-width: 230px

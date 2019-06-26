@@ -8,12 +8,10 @@ class Project extends Component {
   }
 
   setSlide(activeSlide) {
-    const { blockInfinity, fullpageApi } = this.props;
+    const { fullpageApi } = this.props;
     
-    blockInfinity()
     this.setState({ activeSlide })
     fullpageApi.moveTo(this.props.section + 1, activeSlide)
-    blockInfinity(false)
   }
 
   componentDidUpdate() {
@@ -41,7 +39,7 @@ class Project extends Component {
     }
 
     //disabling viewver if hes not on the screen for perfomance 
-    if (isSectionActive && activeSlide === 0 && this.viewer) {
+    if (isSectionActive && activeSlide === 0) {
       if (this.viewer) this.viewer.enabled = true
     } else {     
       if (this.viewer) this.viewer.enabled = false
@@ -62,7 +60,7 @@ class Project extends Component {
     const { activeSlide, openedImage } = this.state
     
     return (
-      <div className={`section fp-noscroll projects`} ref={node => this._element = node} data-slides={`${activeSlide === 0 ? 'first' : ''}${activeSlide === images.length + 1 ? 'last' : ''}`} >
+      <div className='section fp-noscroll projects' ref={node => this._element = node} data-slides={`${activeSlide === 0 ? 'first' : ''}${activeSlide === images.length + 1 ? 'last' : ''}`} >
         <div className='slide fp-noscroll'>
           <div className='first-slide' style={{background: data['fist-slide-color']}}>
             <div className='main-title'> {data.title} </div>
@@ -115,10 +113,10 @@ class Project extends Component {
   }
 }
 
-const Projects = ({ data,  fullpageApi, slideChanges, active, blockInfinity, homeLoaded }) => (
+const Projects = ({ data, active, ...rest }) => (
   <>
     {data.map((project, i) => (
-      <Project  data={project} homeLoaded={homeLoaded} slideChanges={slideChanges} blockInfinity={blockInfinity} isSectionActive={active === i + 2} fullpageApi={fullpageApi} key={i} section={i + 1}/>
+      <Project  data={project}  {...rest} isSectionActive={active === i + 2} key={i} section={i + 1}/>
     ))}
   </>
 )

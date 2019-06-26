@@ -19,7 +19,7 @@ export default function animateNode(element, animationName, callback, notDelete)
 }
 
 export function animate(active, elements, cb, notDelete) {
-  if(active) 
+  if(active && elements) 
     elements.forEach(item => {
       if(item) animateNode(item, item.dataset.animation, cb, notDelete)
     })

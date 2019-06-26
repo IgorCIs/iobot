@@ -15,6 +15,10 @@ class Burger extends PureComponent {
   scrollTo = (index) => {
     this.toggle()
     this.props.onClick(index)
+
+    requestAnimationFrame(() => {
+      this.props.onClick(index)
+    })
   }
 
   scrollToProject = (project) => {
@@ -22,10 +26,10 @@ class Burger extends PureComponent {
     this.props.setProject(project)
     this.props.onClick(project + 2)
 
-    setTimeout(() => {
+    requestAnimationFrame(() => {
       this.props.onClick(project + 2)
       this.props.setProject(project)
-    }, 0)
+    })
   }
 
   render() {

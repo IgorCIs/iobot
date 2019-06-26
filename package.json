@@ -19,8 +19,8 @@
     "redux-thunk": "^2.3.0",
     "three": "^0.103.0",
     "three-controls-deviceorientation": "^1.0.0",
-    "three-device-orientation": "^1.0.3",
     "three-obj-loader": "^1.1.3",
+    "three-device-orientation": "^1.0.3",
     "three-obj-mtl-loader": "^1.0.3",
     "three-orbitcontrols": "^2.102.1"
   },
@@ -39,5 +39,5 @@
     "not ie <= 11",
     "not op_mini all"
   ],
-  "homepage": "http://webgl.unilimes.com/project/iobotic/"
+  "homepage": "https://iobotic.com/"
 }

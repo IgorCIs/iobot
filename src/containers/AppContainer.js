@@ -26,6 +26,5 @@ export default connect(
       setCurrentSlide(slide, project) {
         dispatch(setCurrentSlide(slide, project))
       }
-
     })
 )(App)

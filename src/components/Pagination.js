@@ -2,12 +2,12 @@ import React, { PureComponent } from 'react'
 
 export class Pagination extends PureComponent {
   render() {
-    const { pages } = this.props
+    const { pages, active, onClick } = this.props
     return (
       <div className='pagination'>
         {
-          [...Array(pages)].map((_, i) =>  (
-            <div className={`item ${this.props.active === i + 1 ? 'active' : '' }`} key={i} onClick={() => this.props.onClick(i + 1)}> </div>
+          Array(pages).fill(null).map((_, i) =>  (
+            <div className={`item ${active === i + 1 ? 'active' : '' }`} key={i} onClick={() => onClick(i + 1)}> </div>
           ))
         } 
       </div>
